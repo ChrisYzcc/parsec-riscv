@@ -1,4 +1,5 @@
-# !/bin/bash
+#!/bin/bash
+BENCH_DIR="$(pwd)"
 
 RUN_DIR="$(pwd)/build/${PLATFORM}/run"
 if [ ! -d "${RUN_DIR}" ]; then
@@ -7,16 +8,18 @@ else
     rm -rf ${RUN_DIR}/*
 fi
 
+if [ "$INPUT" == "test" ]; then
+    echo "Test input is not supported."
+    exit 0
+fi
+
 # Unzip input file
 echo "Unzipping input file..."
 tar -xvf inputs/input_${INPUT}.tar -C ${RUN_DIR}
 echo "Unzipping completed."
 echo
 
-# Specify Input
-case $INPUT in
-    "test") ARGS="${RUN_DIR}/sequenceB_1 4 1 100 3 0" ;;
-    "simdev") ARGS="${RUN_DIR}/sequenceB_1 4 1 100 3 0" ;;
-esac
-
-$(pwd)/build/${PLATFORM}/bin/bodytrack-${VERSION} $ARGS ${THREADS}
+# Run facesim
+cd ${RUN_DIR}
+$(pwd)/../bin/facesim-${VERSION} -timing -threads ${THREADS}
+cd ${BENCH_DIR}

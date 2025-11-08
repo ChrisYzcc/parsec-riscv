@@ -22,7 +22,3 @@ case $INPUT in
 esac
 
 $(pwd)/build/${PLATFORM}/bin/blackscholes-${VERSION} ${THREADS} $ARGS
-
-echo "============================================================================"
-echo "  Finished Running Target : ${PROGRAM}"
-echo "============================================================================"
