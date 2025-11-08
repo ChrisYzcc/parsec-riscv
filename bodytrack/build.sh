@@ -5,6 +5,8 @@ export CXXFLAGS="${CXXFLAGS} -fexceptions"
 BUILD_DIR=${PARSECDIR}/bodytrack/build/${PLATFORM}
 if [ ! -d "${BUILD_DIR}" ]; then
     mkdir -p ${BUILD_DIR}
+else
+    rm -rf ${BUILD_DIR}/*
 fi
 
 cd src
@@ -25,3 +27,6 @@ fi
 make version=${VERSION} clean
 make version=${VERSION} -j$(nproc)
 make version=${VERSION} install
+
+# Rename the executable to include platform and version info
+mv ${BUILD_DIR}/bin/bodytrack ${BUILD_DIR}/bin/bodytrack-${VERSION}
