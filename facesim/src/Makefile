@@ -12,8 +12,8 @@ ifdef version
 endif
 
 all:
-	$(MAKE) -C TaskQ/lib all
-	$(MAKE) -C Benchmarks/facesim
+	$(MAKE) -C TaskQ/lib all -j$(nproc)
+	$(MAKE) -C Benchmarks/facesim -j$(nproc)
 
 install:
 	mkdir -p $(PREFIX)/bin
