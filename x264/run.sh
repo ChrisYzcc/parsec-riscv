@@ -16,7 +16,8 @@ echo "Unzipping completed."
 echo
 
 case $INPUT in
-    "test") ARGS=ARGS="--quiet --qp 20 --partitions b8x8,i4x4 --ref 5 --direct auto --b-pyramid --weightb --mixed-refs --no-fast-pskip --me umh --subme 7 --analyse b8x8,i4x4 -o eledream.264 eledream_32x18_1.y4m" ;;
+    "test") ARGS="--quiet --qp 20 --partitions b8x8,i4x4 --ref 5 --direct auto --b-pyramid --weightb --mixed-refs --no-fast-pskip --me umh --subme 7 --analyse b8x8,i4x4 -o eledream.264 eledream_32x18_1.y4m" ;;
+    "simdev") ARGS="--quiet --qp 20 --partitions b8x8,i4x4 --ref 5 --direct auto --b-pyramid --weightb --mixed-refs --no-fast-pskip --me umh --subme 7 --analyse b8x8,i4x4 -o eledream.264 eledream_64x36_3.y4m";;
 esac
 
 # Run
