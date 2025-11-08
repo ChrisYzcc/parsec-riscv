@@ -19,7 +19,7 @@ case $INPUT in
     "simdev") ARGS="${RUN_DIR}/sequenceB_1 4 1 100 3 0" ;;
 esac
 
-$(pwd)/build/${PLATFORM}/bin/bodytrack-${VERSION} ${THREADS} $ARGS
+$(pwd)/build/${PLATFORM}/bin/bodytrack-${VERSION} $ARGS ${THREADS}
 
 echo "============================================================================"
 echo "  Finished Running Target : ${PROGRAM}"
