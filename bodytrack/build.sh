@@ -10,6 +10,7 @@ else
 fi
 
 cd src
+autoreconf -fiv
 
 VERSION_SUFFIX="threads"
 if [ "${VERSION}" == "openmp" ]; then
