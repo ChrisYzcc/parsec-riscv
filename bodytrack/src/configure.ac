@@ -77,10 +77,10 @@ CXXFLAGS="$CXXFLAGS -Wno-unknown-pragmas"
 CXXFLAGS="$CXXFLAGS -std=c++98"
 
 # Make sure VPATH is always defined
-if test "x$VPATH" == "x"; then
-  VPATH="."
-  AC_SUBST([VPATH])
-fi
+#if test "x$VPATH" == "x"; then
+#  VPATH="."
+#  AC_SUBST([VPATH])
+#fi
 
 # Finish up
 AC_CONFIG_FILES([Makefile

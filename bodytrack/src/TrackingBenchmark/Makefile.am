@@ -49,7 +49,7 @@ if ENABLE_TBB
                        TrackingModelTBB.cpp
 endif
 
-AM_CPPFLAGS = -I../FlexImageLib
+AM_CPPFLAGS = -I$(VPATH)/../FlexImageLib
 bodytrack_LDADD = ../FlexImageLib/libflex.la -lm
 
 if ENABLE_THREADS

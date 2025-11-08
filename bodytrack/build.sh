@@ -1,6 +1,9 @@
 #!/bin/bash
 
+BENCH_DIR=${PARSECDIR}/bodytrack
+
 export CXXFLAGS="${CXXFLAGS} -fexceptions"
+export VPATH="${BENCH_DIR}/src"
 
 BUILD_DIR=${PARSECDIR}/bodytrack/build/${PLATFORM}
 if [ ! -d "${BUILD_DIR}" ]; then
@@ -11,6 +14,11 @@ fi
 
 cd src
 autoreconf -fiv
+cd ..
+
+# Compile in tmp dir
+mkdir -p ${BUILD_DIR}/obj
+cd ${BUILD_DIR}/obj
 
 VERSION_SUFFIX="threads"
 if [ "${VERSION}" == "openmp" ]; then
@@ -20,14 +28,13 @@ elif [ "${VERSION}" == "tbb" ]; then
 fi
 
 if [ "${PLATFORM}" == "riscv64" ]; then
-    ./configure --prefix=${BUILD_DIR} --enable-${VERSION_SUFFIX} --host=riscv64-unknown-linux-gnu
+    ${BENCH_DIR}/src/configure --prefix=${BUILD_DIR} --enable-${VERSION_SUFFIX} --host=riscv64-unknown-linux-gnu
 else
-    ./configure --prefix=${BUILD_DIR} --enable-${VERSION_SUFFIX}
+    ${BENCH_DIR}/src/configure --prefix=${BUILD_DIR} --enable-${VERSION_SUFFIX}
 fi
 
-make version=${VERSION} clean
-make version=${VERSION} -j$(nproc)
-make version=${VERSION} install
+make -C ${BUILD_DIR}/obj version=${VERSION} -j$(nproc)
+make -C ${BUILD_DIR}/obj version=${VERSION} install
 
 # Rename the executable to include platform and version info
 mv ${BUILD_DIR}/bin/bodytrack ${BUILD_DIR}/bin/bodytrack-${VERSION}
