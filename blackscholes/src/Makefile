@@ -1,9 +1,8 @@
-PREFIX=${PARSECDIR}/blackscholes/build/
+PREFIX=${PARSECDIR}/blackscholes/build/${PLATFORM}
 
 CSRC    = $(SRC)
-TARGET  = blackscholes
+TARGET  = blackscholes-$(VERSION)
 M4_BASE = .
-M4      = m4
 MACROS  = c.m4.pthreads
 
 ifdef source
@@ -24,6 +23,7 @@ ifdef version
   endif
   ifeq "$(version)" "openmp"
     MT        = -DENABLE_OPENMP
+    TARGET    = $(TARGET)-openmp
   endif
   ifeq "$(version)" "tbb"
     MT        = -DENABLE_TBB
@@ -71,4 +71,5 @@ clean:
 install:
 	mkdir -p $(PREFIX)/bin
 	cp -f $(TARGET) $(PREFIX)/bin/$(TARGET)
+	rm -f $(TARGET)
 
