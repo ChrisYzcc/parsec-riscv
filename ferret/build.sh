@@ -10,4 +10,4 @@ mkdir -p ${PARSECDIR}/ferret/build/${PLATFORM}/obj
 cp -r src/* ${PARSECDIR}/ferret/build/${PLATFORM}/obj
 
 make -C ${PARSECDIR}/ferret/build/${PLATFORM}/obj version=${VERSION}
-make -C ${PARSECDIR}/ferret/build/${PLATFORM}/obj install version
+make -C ${PARSECDIR}/ferret/build/${PLATFORM}/obj install version=${VERSION}

@@ -101,7 +101,6 @@ clean:
 install:
 	cp -r $(BINDIR) $(PREFIX)
 	cp -r $(LIBDIR) $(PREFIX)
-	mv $(PREFIX)/bin/$(benchmark_base) $(PREFIX)/bin/$(TARGET)-$(VERSION)
 
 $(OBJDIR)/%.o : %.c
 	@echo "   CC '$<' ==> '$@'"
