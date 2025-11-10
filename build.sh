@@ -33,12 +33,13 @@ export EXTRA_LIBS=""
 export OPENSSL_RV_DIR="/home/yzcc/riscv64-openssl"
 export ZLIB_RV_DIR="/home/yzcc/riscv64-zlib"
 export GSL_RV_DIR="/home/yzcc/riscv64-gsl"
+export LIBJPEG_RV_DIR="/home/yzcc/riscv64-libjpeg"
 
 if [ "$PLATFORM" == "rv64" ]; then
     CROSS_COMPILE_PREFIX=riscv64-linux-gnu-
-    export CFLAGS="$CFLAGS -I${OPENSSL_RV_DIR}/include/ -I${ZLIB_RV_DIR}/include/ -I${GSL_RV_DIR}/include/"
-    export CXXFLAGS="$CXXFLAGS -I${OPENSSL_RV_DIR}/include/ -I${ZLIB_RV_DIR}/include/ -I${GSL_RV_DIR}/include/"
-    export LDFLAGS="$LDFLAGS -L${OPENSSL_RV_DIR}/lib -L${ZLIB_RV_DIR}/lib -L${GSL_RV_DIR}/lib"
+    export CFLAGS="$CFLAGS -I${OPENSSL_RV_DIR}/include/ -I${ZLIB_RV_DIR}/include/ -I${GSL_RV_DIR}/include/ -I${LIBJPEG_RV_DIR}/include/"
+    export CXXFLAGS="$CXXFLAGS -I${OPENSSL_RV_DIR}/include/ -I${ZLIB_RV_DIR}/include/ -I${GSL_RV_DIR}/include/ -I${LIBJPEG_RV_DIR}/include/"
+    export LDFLAGS="$LDFLAGS -L${OPENSSL_RV_DIR}/lib -L${ZLIB_RV_DIR}/lib -L${GSL_RV_DIR}/lib -L${LIBJPEG_RV_DIR}/lib"
 else
     CROSS_COMPILE_PREFIX=
 fi
