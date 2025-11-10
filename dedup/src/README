@@ -1,0 +1,16 @@
+encoder-write-fixed.c
+---------------------
+Writes correct output, the file can be decompressed. Uses locks.
+
+
+encoder-pthreads-with-memcontrol.c
+----------------------------------
+Allows to execute Dedup pthreads with limited memory. Currently
+the limit is hardcoded to 1400MB of physical memory.
+
+encoder-ompss-only-deps.c
+-------------------------
+Compress stage is independent of the fragment_refine_and_deduplicate.
+This version has 3 task types. In terms of performance, it doesn't 
+improve over the original code on MareNostrum. Raul didn't try it on
+the big.LITTLE machine.

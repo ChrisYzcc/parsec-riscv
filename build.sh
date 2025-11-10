@@ -20,8 +20,24 @@ while getopts "p:rv:h" opt; do
     esac
 done
 
+# Arguments to use
+export CFLAGS=" -O3 -g -funroll-loops -fprefetch-loop-arrays ${PORTABILITY_FLAGS}"
+export CXXFLAGS="-O3 -g -funroll-loops -fprefetch-loop-arrays -fpermissive -fno-exceptions ${PORTABILITY_FLAGS} -std=c++98"
+export CPPFLAGS=""
+export CXXCPPFLAGS=""
+export LDFLAGS="-L${CC_HOME}/lib64 -L${CC_HOME}/lib -no-pie"
+export LIBS=""
+export EXTRA_LIBS=""
+
+# RISC-V Version Tools
+export OPENSSL_RV_DIR="/home/yzcc/riscv64-openssl"
+export ZLIB_RV_DIR="/home/yzcc/riscv64-zlib"
+
 if [ "$PLATFORM" == "rv64" ]; then
     CROSS_COMPILE_PREFIX=riscv64-linux-gnu-
+    export CFLAGS="$CFLAGS -I${OPENSSL_RV_DIR}/include/ -I${ZLIB_RV_DIR}/include/"
+    export CXXFLAGS="$CXXFLAGS -I${OPENSSL_RV_DIR}/include/ -I${ZLIB_RV_DIR}/include/"
+    export LDFLAGS="$LDFLAGS -L${OPENSSL_RV_DIR}/lib -L${ZLIB_RV_DIR}/lib"
 else
     CROSS_COMPILE_PREFIX=
 fi
@@ -43,15 +59,6 @@ export RANLIB="${CC_HOME}/${CROSS_COMPILE_PREFIX}ranlib"
 # GNU Tools
 export M4=/usr/bin/m4
 export MAKE=/usr/bin/make
-
-# Arguments to use
-export CFLAGS=" -O3 -g -funroll-loops -fprefetch-loop-arrays ${PORTABILITY_FLAGS}"
-export CXXFLAGS="-O3 -g -funroll-loops -fprefetch-loop-arrays -fpermissive -fno-exceptions ${PORTABILITY_FLAGS} -std=c++98"
-export CPPFLAGS=""
-export CXXCPPFLAGS=""
-export LDFLAGS="-L${CC_HOME}/lib64 -L${CC_HOME}/lib -no-pie"
-export LIBS=""
-export EXTRA_LIBS=""
 
 export PLATFORM
 export VERSION
