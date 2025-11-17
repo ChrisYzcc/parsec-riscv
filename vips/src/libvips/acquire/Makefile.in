@@ -407,9 +407,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign libvips/acquire/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu libvips/acquire/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --foreign libvips/acquire/Makefile
+	  $(AUTOMAKE) --gnu libvips/acquire/Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
 	  *config.status*) \

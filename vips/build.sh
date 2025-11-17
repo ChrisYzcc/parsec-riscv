@@ -25,7 +25,6 @@ if [ "${PLATFORM}" == "rv64" ]; then
     --prefix=${BUILD_DIR} \
     --host=riscv64-unknown-linux-gnu \
     --disable-shared \
-    --disable-cxx \
     --without-fftw3 \
     --without-magick \
     --without-liboil \
@@ -48,7 +47,6 @@ else
     ${BENCH_DIR}/src/configure \
     --prefix=${BUILD_DIR} \
     --disable-shared \
-    --disable-cxx \
     --without-fftw3 \
     --without-magick \
     --without-liboil \

@@ -269,6 +269,9 @@
 /* native win32 */
 #undef OS_WIN32
 
+/* Name of package */
+#undef PACKAGE
+
 /* Define to the address where bug reports for this package should be sent. */
 #undef PACKAGE_BUGREPORT
 
@@ -294,6 +297,9 @@
 
 /* libexif includes don't need libexif prefix */
 #undef UNTAGGED_EXIF
+
+/* Version number of package */
+#undef VERSION
 
 /* default directory for ICC profiles */
 #undef VIPS_ICC_DIR
