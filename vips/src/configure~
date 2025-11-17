@@ -3836,11 +3836,6 @@ fi
  VERSION=$VERSION
 
 
-printf "%s\n" "#define PACKAGE \"$PACKAGE\"" >>confdefs.h
-
-
-printf "%s\n" "#define VERSION \"$VERSION\"" >>confdefs.h
-
 # Some tools Automake needs.
 
 ACLOCAL=${ACLOCAL-"${am_missing_run}aclocal-${am__api_version}"}

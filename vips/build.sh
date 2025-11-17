@@ -69,3 +69,8 @@ fi
 
 make -C ${BUILD_DIR}/obj -j$(nproc)
 make -C ${BUILD_DIR}/obj install
+
+# Rename the executable to include platform and version info
+for f in "${BUILD_DIR}/bin/"*; do
+    mv "$f" "${f}-${VERSION}"
+done
