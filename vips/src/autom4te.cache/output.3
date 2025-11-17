@@ -724,9 +724,14 @@ GTK_DOC_BUILD_HTML_FALSE
 GTK_DOC_BUILD_HTML_TRUE
 ENABLE_GTK_DOC_FALSE
 ENABLE_GTK_DOC_TRUE
+HAVE_GTK_DOC_FALSE
+HAVE_GTK_DOC_TRUE
+GTKDOC_DEPS_LIBS
+GTKDOC_DEPS_CFLAGS
 HTML_DIR
 GTKDOC_MKPDF
 GTKDOC_REBASE
+GTKDOC_CHECK_PATH
 GTKDOC_CHECK
 GTHREAD_LIBS
 GTHREAD_CFLAGS
@@ -965,6 +970,8 @@ REQUIRED_CFLAGS
 REQUIRED_LIBS
 GTHREAD_CFLAGS
 GTHREAD_LIBS
+GTKDOC_DEPS_CFLAGS
+GTKDOC_DEPS_LIBS
 FFTW3_CFLAGS
 FFTW3_LIBS
 MAGICK_WAND_CFLAGS
@@ -1716,6 +1723,10 @@ Some influential environment variables:
               C compiler flags for GTHREAD, overriding pkg-config
   GTHREAD_LIBS 
               linker flags for GTHREAD, overriding pkg-config
+  GTKDOC_DEPS_CFLAGS 
+              C compiler flags for GTKDOC_DEPS, overriding pkg-config
+  GTKDOC_DEPS_LIBS 
+              linker flags for GTKDOC_DEPS, overriding pkg-config
   FFTW3_CFLAGS 
               C compiler flags for FFTW3, overriding pkg-config
   FFTW3_LIBS  linker flags for FFTW3, overriding pkg-config
@@ -22030,18 +22041,86 @@ fi
 
 # check for gtk-doc
 
+  
     
-    # Extract the first word of "gtkdoc-check", so it can be a program name with args.
+  gtk_doc_requires="gtk-doc >= 1.9"
+  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for gtk-doc" >&5
+printf %s "checking for gtk-doc... " >&6; }
+  if test -n "$PKG_CONFIG" && \
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"\$gtk_doc_requires\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "$gtk_doc_requires") 2>&5
+  ac_status=$?
+  printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  have_gtk_doc=yes
+else
+  have_gtk_doc=no
+fi
+  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $have_gtk_doc" >&5
+printf "%s\n" "$have_gtk_doc" >&6; }
+
+  if test "$have_gtk_doc" = "no"; then
+      { printf "%s\n" "$as_me:${as_lineno-$LINENO}: WARNING: 
+  You will not be able to create source packages with 'make dist'
+  because $gtk_doc_requires is not found." >&5
+printf "%s\n" "$as_me: WARNING: 
+  You will not be able to create source packages with 'make dist'
+  because $gtk_doc_requires is not found." >&2;}
+  fi
+
+            # Extract the first word of "gtkdoc-check", so it can be a program name with args.
 set dummy gtkdoc-check; ac_word=$2
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
 printf %s "checking for $ac_word... " >&6; }
-if test ${ac_cv_path_GTKDOC_CHECK+y}
+if test ${ac_cv_prog_GTKDOC_CHECK+y}
 then :
   printf %s "(cached) " >&6
 else $as_nop
-  case $GTKDOC_CHECK in
+  if test -n "$GTKDOC_CHECK"; then
+  ac_cv_prog_GTKDOC_CHECK="$GTKDOC_CHECK" # Let the user override the test.
+else
+as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  case $as_dir in #(((
+    '') as_dir=./ ;;
+    */) ;;
+    *) as_dir=$as_dir/ ;;
+  esac
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if as_fn_executable_p "$as_dir$ac_word$ac_exec_ext"; then
+    ac_cv_prog_GTKDOC_CHECK="gtkdoc-check.test"
+    printf "%s\n" "$as_me:${as_lineno-$LINENO}: found $as_dir$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+fi
+fi
+GTKDOC_CHECK=$ac_cv_prog_GTKDOC_CHECK
+if test -n "$GTKDOC_CHECK"; then
+  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $GTKDOC_CHECK" >&5
+printf "%s\n" "$GTKDOC_CHECK" >&6; }
+else
+  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+printf "%s\n" "no" >&6; }
+fi
+
+
+  # Extract the first word of "gtkdoc-check", so it can be a program name with args.
+set dummy gtkdoc-check; ac_word=$2
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+printf %s "checking for $ac_word... " >&6; }
+if test ${ac_cv_path_GTKDOC_CHECK_PATH+y}
+then :
+  printf %s "(cached) " >&6
+else $as_nop
+  case $GTKDOC_CHECK_PATH in
   [\\/]* | ?:[\\/]*)
-  ac_cv_path_GTKDOC_CHECK="$GTKDOC_CHECK" # Let the user override the test with a path.
+  ac_cv_path_GTKDOC_CHECK_PATH="$GTKDOC_CHECK_PATH" # Let the user override the test with a path.
   ;;
   *)
   as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
@@ -22055,7 +22134,7 @@ do
   esac
     for ac_exec_ext in '' $ac_executable_extensions; do
   if as_fn_executable_p "$as_dir$ac_word$ac_exec_ext"; then
-    ac_cv_path_GTKDOC_CHECK="$as_dir$ac_word$ac_exec_ext"
+    ac_cv_path_GTKDOC_CHECK_PATH="$as_dir$ac_word$ac_exec_ext"
     printf "%s\n" "$as_me:${as_lineno-$LINENO}: found $as_dir$ac_word$ac_exec_ext" >&5
     break 2
   fi
@@ -22066,10 +22145,10 @@ IFS=$as_save_IFS
   ;;
 esac
 fi
-GTKDOC_CHECK=$ac_cv_path_GTKDOC_CHECK
-if test -n "$GTKDOC_CHECK"; then
-  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $GTKDOC_CHECK" >&5
-printf "%s\n" "$GTKDOC_CHECK" >&6; }
+GTKDOC_CHECK_PATH=$ac_cv_path_GTKDOC_CHECK_PATH
+if test -n "$GTKDOC_CHECK_PATH"; then
+  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $GTKDOC_CHECK_PATH" >&5
+printf "%s\n" "$GTKDOC_CHECK_PATH" >&6; }
 else
   { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
 printf "%s\n" "no" >&6; }
@@ -22194,23 +22273,91 @@ else $as_nop
 fi
 
 
-  if test x$enable_gtk_doc = xyes; then
-    if test -n "$PKG_CONFIG" && \
-    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"gtk-doc >= 1.9\""; } >&5
-  ($PKG_CONFIG --exists --print-errors "gtk-doc >= 1.9") 2>&5
-  ac_status=$?
-  printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
-  test $ac_status = 0; }; then
-  :
-else
-  as_fn_error $? "You need to have gtk-doc >= 1.9 installed to build $PACKAGE_NAME" "$LINENO" 5
-fi
-  fi
-
   { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking whether to build gtk-doc documentation" >&5
 printf %s "checking whether to build gtk-doc documentation... " >&6; }
   { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $enable_gtk_doc" >&5
 printf "%s\n" "$enable_gtk_doc" >&6; }
+
+  if test "x$enable_gtk_doc" = "xyes" && test "$have_gtk_doc" = "no"; then
+    as_fn_error $? "
+  You must have $gtk_doc_requires installed to build documentation for
+  $PACKAGE_NAME. Please install gtk-doc or disable building the
+  documentation by adding '--disable-gtk-doc' to '$0'." "$LINENO" 5
+  fi
+
+    if test "x$PACKAGE_NAME" != "xglib"; then
+        
+pkg_failed=no
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for glib-2.0 >= 2.10.0 gobject-2.0  >= 2.10.0" >&5
+printf %s "checking for glib-2.0 >= 2.10.0 gobject-2.0  >= 2.10.0... " >&6; }
+
+if test -n "$GTKDOC_DEPS_CFLAGS"; then
+    pkg_cv_GTKDOC_DEPS_CFLAGS="$GTKDOC_DEPS_CFLAGS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"glib-2.0 >= 2.10.0 gobject-2.0  >= 2.10.0\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "glib-2.0 >= 2.10.0 gobject-2.0  >= 2.10.0") 2>&5
+  ac_status=$?
+  printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_GTKDOC_DEPS_CFLAGS=`$PKG_CONFIG --cflags "glib-2.0 >= 2.10.0 gobject-2.0  >= 2.10.0" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes 
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+if test -n "$GTKDOC_DEPS_LIBS"; then
+    pkg_cv_GTKDOC_DEPS_LIBS="$GTKDOC_DEPS_LIBS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"glib-2.0 >= 2.10.0 gobject-2.0  >= 2.10.0\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "glib-2.0 >= 2.10.0 gobject-2.0  >= 2.10.0") 2>&5
+  ac_status=$?
+  printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_GTKDOC_DEPS_LIBS=`$PKG_CONFIG --libs "glib-2.0 >= 2.10.0 gobject-2.0  >= 2.10.0" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes 
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+
+
+
+if test $pkg_failed = yes; then
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+printf "%s\n" "no" >&6; }
+        
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
+else
+        _pkg_short_errors_supported=no
+fi
+        if test $_pkg_short_errors_supported = yes; then
+                GTKDOC_DEPS_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "glib-2.0 >= 2.10.0 gobject-2.0  >= 2.10.0" 2>&1`
+        else
+                GTKDOC_DEPS_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "glib-2.0 >= 2.10.0 gobject-2.0  >= 2.10.0" 2>&1`
+        fi
+        # Put the nasty error message in config.log where it belongs
+        echo "$GTKDOC_DEPS_PKG_ERRORS" >&5
+
+        :
+elif test $pkg_failed = untried; then
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+printf "%s\n" "no" >&6; }
+        :
+else
+        GTKDOC_DEPS_CFLAGS=$pkg_cv_GTKDOC_DEPS_CFLAGS
+        GTKDOC_DEPS_LIBS=$pkg_cv_GTKDOC_DEPS_LIBS
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+printf "%s\n" "yes" >&6; }
+        
+fi
+  fi
 
     @%:@ Check whether --enable-gtk-doc-html was given.
 if test ${enable_gtk_doc_html+y}
@@ -22233,6 +22380,18 @@ fi
     enable_gtk_doc_pdf=no
   fi
 
+  if test -z "$AM_DEFAULT_VERBOSITY"; then
+    AM_DEFAULT_VERBOSITY=1
+  fi
+  
+
+   if test x$have_gtk_doc = xyes; then
+  HAVE_GTK_DOC_TRUE=
+  HAVE_GTK_DOC_FALSE='#'
+else
+  HAVE_GTK_DOC_TRUE='#'
+  HAVE_GTK_DOC_FALSE=
+fi
 
    if test x$enable_gtk_doc = xyes; then
   ENABLE_GTK_DOC_TRUE=
@@ -26039,6 +26198,10 @@ if test -z "${ENABLE_LINKS_TRUE}" && test -z "${ENABLE_LINKS_FALSE}"; then
   as_fn_error $? "conditional \"ENABLE_LINKS\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
+if test -z "${HAVE_GTK_DOC_TRUE}" && test -z "${HAVE_GTK_DOC_FALSE}"; then
+  as_fn_error $? "conditional \"HAVE_GTK_DOC\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
 if test -z "${ENABLE_GTK_DOC_TRUE}" && test -z "${ENABLE_GTK_DOC_FALSE}"; then
   as_fn_error $? "conditional \"ENABLE_GTK_DOC\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
@@ -28598,3 +28761,4 @@ use libexif to load/save JPEG metadata: $with_libexif
 video capture with v4l: 		$with_v4l
 build Python binding: 			$with_python
 " >&6; }
+   
