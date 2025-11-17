@@ -1,5 +1,6 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT(libvips/include/vips/colour.h)
+AC_INIT([libvips],[1.14.0])
+AC_CONFIG_SRCDIR([libvips/include/vips/colour.h])
 AM_CONFIG_HEADER(config.h)
 AC_CONFIG_MACRO_DIR(m4)
 
@@ -32,7 +33,9 @@ LIBRARY_CURRENT=29
 LIBRARY_REVISION=2
 LIBRARY_AGE=14
 
-AM_INIT_AUTOMAKE($PACKAGE,$VERSION)
+AM_INIT_AUTOMAKE([foreign])
+AC_PROG_CC
+AC_PROG_CXX
 
 # patched into include/vips/version.h
 AC_SUBST(IM_VERSION)
@@ -55,8 +58,7 @@ m4_define([debug_default],
   m4_if(m4_eval(vips_minor_version() % 2), [1], [yes], [minimum]))
 
 AC_ARG_ENABLE(debug,
-  AC_HELP_STRING([--enable-debug=@<:@no/minimum/yes@:>@],
-    [turn on debugging @<:@default=debug_default()@:>@]),,
+  AS_HELP_STRING([--enable-debug=@<:@no/minimum/yes@:>@],[turn on debugging @<:@default=debug_default()@:>@]),,
   enable_debug=debug_default())
 
 if test "x$enable_debug" = "xyes"; then
@@ -141,7 +143,13 @@ AC_SYS_LARGEFILE
 # Checks for programs.
 AC_PROG_AWK
 AC_PROG_CC
-AC_PROG_CC_STDC
+m4_warn([obsolete],
+[m4_warn([obsolete],
+[AC_PROG_CC_STDC is obsolete; use AC_PROG_CC
+])dnl
+AC_REQUIRE(AC_PROG_CC) is obsolete; use AC_PROG_CC
+])dnl
+AC_REQUIRE(AC_PROG_CC)
 AC_C_CONST
 AC_C_RESTRICT
 AC_PROG_RANLIB
@@ -212,13 +220,28 @@ PACKAGES_USED=""
 
 # Checks for header files.
 AC_HEADER_DIRENT
-AC_HEADER_STDC
+m4_warn([obsolete],
+[The preprocessor macro `STDC_HEADERS' is obsolete.
+  Except in unusual embedded environments, you can safely include all
+  ISO C90 headers unconditionally.])dnl
+# Autoupdate added the next two lines to ensure that your configure
+# script's behavior did not change.  They are probably safe to remove.
+AC_CHECK_INCLUDES_DEFAULT
+AC_PROG_EGREP
+
 AC_CHECK_HEADERS([errno.h math.h fcntl.h limits.h stdlib.h string.h sys/file.h sys/ioctl.h sys/param.h sys/time.h sys/mman.h sys/types.h sys/stat.h unistd.h io.h direct.h windows.h])
 
 # uncomment to change which libs we build
 # AC_DISABLE_SHARED
 # AC_DISABLE_STATIC
-AC_LIBTOOL_WIN32_DLL
+AC_CANONICAL_HOST
+LT_INIT([win32-dll])
+m4_warn([obsolete],[AC_REQUIRE(AC_CANONICAL_HOST)_LT_SET_OPTION([LT_INIT],[win32-dll])
+m4_warn([obsolete],[AC_LIBTOOL_WIN32_DLL: Remove this warning and the call to _LT_SET_OPTION when you
+put the 'win32-dll' option into LT_INIT's first parameter.])
+: Remove this warning and the call to _LT_SET_OPTION when you
+put the 'win32-dll' option into LT_INIT's first parameter.])
+
 AC_CHECK_TOOL(DLLWRAP, dllwrap)
 AC_CHECK_TOOL(DLLTOOL, dlltool)
 AC_CHECK_TOOL(OBJDUMP, objdump)
@@ -227,8 +250,14 @@ AC_CHECK_TOOL(STRIP, strip)
 AC_CHECK_TOOL(AR, ar)
 AC_CHECK_TOOL(AS, as)
 AC_CHECK_TOOL(LD, ld)
-AC_PROVIDE([AC_LIBTOOL_WIN32_DLL])
-AC_PROG_LIBTOOL
+AC_PROVIDE([AC_REQUIRE(AC_CANONICAL_HOST)_LT_SET_OPTION([LT_INIT],[win32-dll])
+m4_warn([obsolete],[AC_REQUIRE(AC_CANONICAL_HOST)_LT_SET_OPTION([LT_INIT],[win32-dll])
+m4_warn([obsolete],[AC_LIBTOOL_WIN32_DLL: Remove this warning and the call to _LT_SET_OPTION when you
+put the 'win32-dll' option into LT_INIT's first parameter.])
+: Remove this warning and the call to _LT_SET_OPTION when you
+put the 'win32-dll' option into LT_INIT's first parameter.])
+])
+LT_INIT
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
@@ -514,9 +543,7 @@ if test x"$with_v4l" != "xno"; then
   # even try assigning to vc.type: if this works, surely the header is
   # functional
   AC_CHECK_HEADER(linux/videodev.h, 
-    [AC_TRY_COMPILE([#include <linux/videodev.h>], 
-		    [struct video_capability vc; vc.type = 12], 
-		     with_videodev=yes)
+    [AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <linux/videodev.h>]], [[struct video_capability vc; vc.type = 12]])],[with_videodev=yes],[])
     ])
 fi
 
@@ -588,7 +615,7 @@ AC_SUBST(PACKAGES_USED)
 # you'd think we could have 
 #	vips-$IM_MAJOR_VERSION.$IM_MINOR_VERSION.pc
 # in AC_OUTPUT, but that seems to break for some combinations of sh/m4
-AC_OUTPUT([
+AC_CONFIG_FILES([
 	vips-7.22.pc
 	vipsCC-7.22.pc
 	Makefile 
@@ -638,6 +665,7 @@ AC_OUTPUT([
 	doc/reference/libvips-docs.sgml
 	po/Makefile.in
 ])
+AC_OUTPUT
 
 AC_MSG_RESULT([
 * general build options
