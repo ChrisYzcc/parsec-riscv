@@ -150,12 +150,12 @@ SUBDIRS(
 	MiniView  # frontends
 	)
 
-ADD_EXECUTABLE(test_glut Testing/testglut)
-TARGET_LINK_LIBRARIES(test_glut ${GLUT_glut_LIBRARY} ${GL_LIBS} $ENV{LIBS})
+#ADD_EXECUTABLE(test_glut Testing/testglut)
+#TARGET_LINK_LIBRARIES(test_glut ${GLUT_glut_LIBRARY} ${GL_LIBS} $ENV{LIBS})
 
 #ADD_EXECUTABLE(test_pbo Testing/testpbo)
 #TARGET_LINK_LIBRARIES(test_pbo ${GLUT_glut_LIBRARY} ${GL_LIBS} $ENV{LIBS} stdc++)
 
-INSTALL(TARGETS test_glut RUNTIME DESTINATION bin)
+INSTALL(TARGETS RUNTIME DESTINATION bin)
 #INSTALL(TARGETS test_pbo RUNTIME DESTINATION bin)
 
