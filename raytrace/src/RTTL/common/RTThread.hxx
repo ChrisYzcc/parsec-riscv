@@ -30,7 +30,7 @@ _INLINE int atomic_add(atomic_t *v, const int c) {
   }                                                              
   return e;
 }
-#else
+#elif defined(__i386__) || defined(__x86_64__)
 _INLINE int atomic_add(atomic_t *v, const int c) {
   int i = c;
   int __i = i;
@@ -41,6 +41,22 @@ _INLINE int atomic_add(atomic_t *v, const int c) {
 
   return i + __i;
 }
+#elif defined(__riscv__) || defined(__riscv) || defined(riscv) || defined(__RISCV__)
+_INLINE long atomic_add(atomic_t *v, const long c)
+{
+    long old;
+
+    __asm__ __volatile__ (
+        "amoadd.d %0, %2, %1"
+        : "=r"(old), "+A"(*v)
+        : "r"(c)
+        : "memory"
+    );
+
+    return old + c;
+}
+#else
+#error "atomic_add not defined for this architecture"
 #endif
 
 _INLINE int atomic_inc(atomic_t *v) {
