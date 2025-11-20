@@ -1,5 +1,3 @@
-# !/bin/bash
-
 RUN_DIR="$(pwd)/build/${PLATFORM}/run"
 if [ ! -d "${RUN_DIR}" ]; then
     mkdir -p ${RUN_DIR}

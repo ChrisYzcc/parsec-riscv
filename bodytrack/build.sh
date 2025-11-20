@@ -1,5 +1,3 @@
-#!/bin/bash
-
 BENCH_DIR=${PARSECDIR}/bodytrack
 
 export CXXFLAGS="${CXXFLAGS} -fexceptions"

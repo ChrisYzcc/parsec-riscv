@@ -1,5 +1,3 @@
-#!/bin/bash
-
 if [ -z "$NDIVS" ]; then
     NDIVS=${THREADS}
 fi

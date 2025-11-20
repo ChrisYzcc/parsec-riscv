@@ -1,4 +1,3 @@
-#!/bin/bash
 rm -rf build/${PLATFORM}
 
 mkdir -p ${PARSECDIR}/facesim/build/${PLATFORM}/obj

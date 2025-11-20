@@ -1,5 +1,3 @@
-#!/bin/bash
-
 PLATFORM=native
 PROGRAM=blackscholes
 VERSION=pthreads

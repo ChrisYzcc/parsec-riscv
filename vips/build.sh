@@ -1,5 +1,3 @@
-#!/bin/bash
-
 BENCH_DIR=${PARSECDIR}/vips
 
 export CXXFLAGS="${CXXFLAGS} -fexceptions -I/home/yzcc/riscv64-glib/include -I/home/yzcc/riscv64-libxml2/include"

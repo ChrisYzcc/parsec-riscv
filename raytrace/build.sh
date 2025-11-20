@@ -1,4 +1,3 @@
-#!/bin/bash
 BENCH_DIR=${PARSECDIR}/raytrace
 BUILD_DIR=${BENCH_DIR}/build/${PLATFORM}
 

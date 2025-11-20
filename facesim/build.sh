@@ -1,4 +1,3 @@
-#!/bin/bash
 rm -rf build/${PLATFORM}
 
 export CXXFLAGS="${CXXFLAGS} -fexceptions"

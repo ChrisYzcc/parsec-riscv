@@ -1,5 +1,3 @@
-#!/bin/bash
-
 PARSECDIR=$(pwd)
 
 ALL="blackscholes bodytrack canneal dedup facesim ferret fluidanimate freqmine streamcluster swaptions x264"

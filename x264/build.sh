@@ -1,4 +1,3 @@
-#!/bin/bash
 BENCH_DIR=${PARSECDIR}/x264
 BUILD_DIR=${PARSECDIR}/x264/build/${PLATFORM}
 

@@ -1,4 +1,3 @@
-#!/bin/bash
 BENCH_DIR="$(pwd)"
 RUN_DIR="$(pwd)/build/${PLATFORM}/run"
 
