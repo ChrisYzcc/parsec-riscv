@@ -20,11 +20,11 @@ while getopts "p:rv:h" opt; do
 done
 
 # Arguments to use
-export CFLAGS=" -O3 -g -funroll-loops -fprefetch-loop-arrays ${PORTABILITY_FLAGS}"
-export CXXFLAGS="-O3 -g -funroll-loops -fprefetch-loop-arrays -fpermissive -fno-exceptions ${PORTABILITY_FLAGS} -std=c++98"
+export CFLAGS=" -O3 -g -funroll-loops -fprefetch-loop-arrays ${PORTABILITY_FLAGS} -static"
+export CXXFLAGS="-O3 -g -funroll-loops -fprefetch-loop-arrays -fpermissive -fno-exceptions ${PORTABILITY_FLAGS} -std=c++98 -static"
 export CPPFLAGS=""
 export CXXCPPFLAGS=""
-export LDFLAGS="-L${CC_HOME}/lib64 -L${CC_HOME}/lib -no-pie"
+export LDFLAGS="-L${CC_HOME}/lib64 -L${CC_HOME}/lib -no-pie -static"
 export LIBS=""
 export EXTRA_LIBS=""
 
@@ -34,7 +34,7 @@ export ZLIB_RV_DIR="/home/yzcc/riscv64-zlib"
 export GSL_RV_DIR="/home/yzcc/riscv64-gsl"
 export LIBJPEG_RV_DIR="/home/yzcc/riscv64-libjpeg"
 
-if [ "$PLATFORM" == "rv64" ]; then
+if [ "$PLATFORM" = "rv64" ]; then
     CROSS_COMPILE_PREFIX=riscv64-linux-gnu-
     export CFLAGS="$CFLAGS -I${OPENSSL_RV_DIR}/include/ -I${ZLIB_RV_DIR}/include/ -I${GSL_RV_DIR}/include/ -I${LIBJPEG_RV_DIR}/include/"
     export CXXFLAGS="$CXXFLAGS -I${OPENSSL_RV_DIR}/include/ -I${ZLIB_RV_DIR}/include/ -I${GSL_RV_DIR}/include/ -I${LIBJPEG_RV_DIR}/include/"
@@ -64,7 +64,7 @@ export MAKE=/usr/bin/make
 export PLATFORM
 export VERSION
 
-if [ "${PROGRAM}" == "all" ]; then
+if [ "${PROGRAM}" = "all" ]; then
     for prog in $ALL; do
         echo "============================================================================"
         echo "  Building Target : ${prog}"

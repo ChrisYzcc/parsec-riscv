@@ -7,7 +7,7 @@ else
     rm -rf ${RUN_DIR}/*
 fi
 
-if [ "$INPUT" == "test" ]; then
+if [ "$INPUT" = "test" ]; then
     echo "Test input is not supported."
     exit 0
 fi

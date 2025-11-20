@@ -1,6 +1,6 @@
 rm -rf build/${PLATFORM}
 
-if [ "${VERSION}" == "openmp" ]; then
+if [ "${VERSION}" = "openmp" ]; then
     echo "OpenMP version of ferret is not supported."
     exit 1
 fi

@@ -1,6 +1,6 @@
 rm -rf build/${PLATFORM}
 
-if [ "${VERSION}" == "pthreads" ]; then
+if [ "${VERSION}" = "pthreads" ]; then
     echo "Pthread version of Freqmine is not supported."
     exit 1
 fi

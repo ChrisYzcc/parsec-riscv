@@ -18,7 +18,7 @@ cd ..
 mkdir -p ${BUILD_DIR}/obj
 cd ${BUILD_DIR}/obj
 
-if [ "${PLATFORM}" == "rv64" ]; then
+if [ "${PLATFORM}" = "rv64" ]; then
     ${BENCH_DIR}/src/configure \
     --prefix=${BUILD_DIR} \
     --host=riscv64-unknown-linux-gnu \

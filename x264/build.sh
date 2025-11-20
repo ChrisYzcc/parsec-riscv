@@ -13,7 +13,7 @@ cp -r src/* ${PARSECDIR}/x264/build/${PLATFORM}/obj
 cd ${PARSECDIR}/x264/build/${PLATFORM}/obj
 rm -f .depend
 
-if [ "${PLATFORM}" == "rv64" ]; then
+if [ "${PLATFORM}" = "rv64" ]; then
     ./configure --prefix=${BUILD_DIR} --enable-pthread --host=riscv64-unknown-linux-gnu
 else
     ./configure --prefix=${BUILD_DIR} --enable-pthread

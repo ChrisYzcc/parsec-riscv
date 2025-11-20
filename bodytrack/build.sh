@@ -19,13 +19,13 @@ mkdir -p ${BUILD_DIR}/obj
 cd ${BUILD_DIR}/obj
 
 VERSION_SUFFIX="threads"
-if [ "${VERSION}" == "openmp" ]; then
+if [ "${VERSION}" = "openmp" ]; then
     VERSION_SUFFIX="openmp"
-elif [ "${VERSION}" == "tbb" ]; then
+elif [ "${VERSION}" = "tbb" ]; then
     VERSION_SUFFIX="tbb"
 fi
 
-if [ "${PLATFORM}" == "rv64" ]; then
+if [ "${PLATFORM}" = "rv64" ]; then
     ${BENCH_DIR}/src/configure --prefix=${BUILD_DIR} --enable-${VERSION_SUFFIX} --host=riscv64-unknown-linux-gnu
 else
     ${BENCH_DIR}/src/configure --prefix=${BUILD_DIR} --enable-${VERSION_SUFFIX}
