@@ -9,8 +9,7 @@ THREADS=1
 while getopts "p:rv:hi:n:" opt; do
     case "$opt" in
         p) PROGRAM=$OPTARG ;;
-        r) echo "TBD"
-           exit 0;;
+        r) PLATFORM=rv64 ;;
         v) VERSION=$OPTARG ;;
         i) INPUT=$OPTARG ;;
         n) THREADS=$OPTARG ;;

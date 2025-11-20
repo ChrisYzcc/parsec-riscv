@@ -5,6 +5,7 @@ export PARSECDIR=$(pwd)
 PLATFORM=native
 PROGRAM=blackscholes
 VERSION=pthreads
+ALL="blackscholes bodytrack canneal dedup facesim ferret fluidanimate freqmine streamcluster swaptions x264"
 
 while getopts "p:rv:h" opt; do
     case "$opt" in
@@ -65,16 +66,34 @@ export MAKE=/usr/bin/make
 export PLATFORM
 export VERSION
 
-echo "============================================================================"
-echo "  Building Target : ${PROGRAM}"
-echo "  Platform        : ${PLATFORM}"
-echo "  Version         : ${VERSION}"
-echo "============================================================================"
+if [ "${PROGRAM}" == "all" ]; then
+    for prog in $ALL; do
+        echo "============================================================================"
+        echo "  Building Target : ${prog}"
+        echo "  Platform        : ${PLATFORM}"
+        echo "  Version         : ${VERSION}"
+        echo "============================================================================"
+        cd ${prog}
+        ./build.sh
+        cd ..
+    done
 
-cd ${PROGRAM}
-./build.sh
-cd ..
+    echo "============================================================================"
+    echo "  Build of all programs completed."
+    echo "============================================================================"
+    exit 0
+else
+    echo "============================================================================"
+    echo "  Building Target : ${PROGRAM}"
+    echo "  Platform        : ${PLATFORM}"
+    echo "  Version         : ${VERSION}"
+    echo "============================================================================"
 
-echo "============================================================================"
-echo "  Build of ${PROGRAM} completed."
-echo "============================================================================"
+    cd ${PROGRAM}
+    ./build.sh
+    cd ..
+
+    echo "============================================================================"
+    echo "  Build of ${PROGRAM} completed."
+    echo "============================================================================"
+fi
