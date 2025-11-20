@@ -11,8 +11,8 @@ fi
 for PROGRAM in $ALL; do
     mkdir -p ${PARSECDIR}/rv_pack/${PROGRAM}
 
-    mkdir -p ${PARSECDIR}/rv_pack/${PROGRAM}/build/
-    cp -r ${PARSECDIR}/${PROGRAM}/build/rv64/ ${PARSECDIR}/rv_pack/${PROGRAM}/build/rv64/
+    mkdir -p ${PARSECDIR}/rv_pack/${PROGRAM}/build/rv64
+    cp -r ${PARSECDIR}/${PROGRAM}/build/rv64/bin ${PARSECDIR}/rv_pack/${PROGRAM}/build/rv64/bin
     if [ -d "${PARSECDIR}/${PROGRAM}/inputs" ]; then
         cp -r ${PARSECDIR}/${PROGRAM}/inputs ${PARSECDIR}/rv_pack/${PROGRAM}/inputs
     fi
