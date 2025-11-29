@@ -86,6 +86,9 @@ export PLATFORM
 export VERSION
 
 if [ "${PROGRAM}" = "all" ]; then
+
+
+    FAILED_LIST=""
     for prog in $ALL; do
         echo "============================================================================"
         echo "  Building Target : ${prog}"
@@ -94,12 +97,20 @@ if [ "${PROGRAM}" = "all" ]; then
         echo "============================================================================"
         cd ${prog}
         ./build.sh
+        if [ $? -ne 0 ]; then
+            echo -e "\033[31m[ERROR] Build failed for ${prog}!\033[0m"
+            FAILED_LIST="$FAILED_LIST $prog"
+        fi
         cd ..
     done
 
     echo "============================================================================"
     echo "  Build of all programs completed."
     echo "============================================================================"
+    if [ -n "$FAILED_LIST" ]; then
+        echo -e "\033[31m[ERROR] The following programs failed to build:$FAILED_LIST\033[0m"
+        exit 1
+    fi
     exit 0
 else
     echo "============================================================================"
@@ -108,8 +119,14 @@ else
     echo "  Version         : ${VERSION}"
     echo "============================================================================"
 
+
     cd ${PROGRAM}
     ./build.sh
+    if [ $? -ne 0 ]; then
+        echo -e "\033[31m[ERROR] Build failed for ${PROGRAM}!\033[0m"
+        cd ..
+        exit 1
+    fi
     cd ..
 
     echo "============================================================================"
