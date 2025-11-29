@@ -1,6 +1,6 @@
 PARSECDIR=$(pwd)
 
-ALL="blackscholes bodytrack canneal dedup facesim ferret fluidanimate freqmine streamcluster swaptions x264"
+ALL="blackscholes bodytrack canneal dedup facesim ferret fluidanimate freqmine streamcluster swaptions x264 vips"
 
 if [ ! -d "${PARSECDIR}/rv_pack" ]; then
     mkdir -p ${PARSECDIR}/rv_pack

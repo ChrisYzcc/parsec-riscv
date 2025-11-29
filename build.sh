@@ -20,25 +20,46 @@ while getopts "p:rv:h" opt; do
 done
 
 # Arguments to use
-export CFLAGS=" -O3 -g -funroll-loops -fprefetch-loop-arrays ${PORTABILITY_FLAGS}"
-export CXXFLAGS="-O3 -g -funroll-loops -fprefetch-loop-arrays -fpermissive -fno-exceptions ${PORTABILITY_FLAGS} -std=c++98"
+export CFLAGS=" -O3 -g -funroll-loops ${PORTABILITY_FLAGS} -static"
+export CXXFLAGS="-O3 -g -funroll-loops -fpermissive -fno-exceptions ${PORTABILITY_FLAGS} -std=c++98 -static"
 export CPPFLAGS=""
 export CXXCPPFLAGS=""
-export LDFLAGS="-L${CC_HOME}/lib64 -L${CC_HOME}/lib -no-pie"
+export LDFLAGS="-L${CC_HOME}/lib64 -L${CC_HOME}/lib -no-pie -static"
 export LIBS=""
 export EXTRA_LIBS=""
 
 # RISC-V Version Tools
-export OPENSSL_RV_DIR="/home/yzcc/riscv64-openssl"
-export ZLIB_RV_DIR="/home/yzcc/riscv64-zlib"
-export GSL_RV_DIR="/home/yzcc/riscv64-gsl"
-export LIBJPEG_RV_DIR="/home/yzcc/riscv64-libjpeg"
+RV_LIB_PREFIX="/home/yzcc"
+export OPENSSL_RV_DIR="${RV_LIB_PREFIX}/riscv64-openssl"
+export ZLIB_RV_DIR="${RV_LIB_PREFIX}/riscv64-zlib"
+export GSL_RV_DIR="${RV_LIB_PREFIX}/riscv64-gsl"
+export LIBJPEG_RV_DIR="${RV_LIB_PREFIX}/riscv64-libjpeg"
+export GLIB_RV_DIR="${RV_LIB_PREFIX}/riscv64-glib"
+export LIBXML2_RV_DIR="${RV_LIB_PREFIX}/riscv64-libxml2"
 
 if [ "$PLATFORM" = "rv64" ]; then
     CROSS_COMPILE_PREFIX=riscv64-linux-gnu-
-    export CFLAGS="$CFLAGS -I${OPENSSL_RV_DIR}/include/ -I${ZLIB_RV_DIR}/include/ -I${GSL_RV_DIR}/include/ -I${LIBJPEG_RV_DIR}/include/"
-    export CXXFLAGS="$CXXFLAGS -I${OPENSSL_RV_DIR}/include/ -I${ZLIB_RV_DIR}/include/ -I${GSL_RV_DIR}/include/ -I${LIBJPEG_RV_DIR}/include/"
-    export LDFLAGS="$LDFLAGS -L${OPENSSL_RV_DIR}/lib -L${ZLIB_RV_DIR}/lib -L${GSL_RV_DIR}/lib -L${LIBJPEG_RV_DIR}/lib"
+    export CFLAGS="$CFLAGS \
+        -I${OPENSSL_RV_DIR}/include/ \
+        -I${ZLIB_RV_DIR}/include/ \
+        -I${GSL_RV_DIR}/include/ \
+        -I${LIBJPEG_RV_DIR}/include/ \
+        -I${GLIB_RV_DIR}/include/ \
+        -I${LIBXML2_RV_DIR}/include/"
+    export CXXFLAGS="$CXXFLAGS \
+        -I${OPENSSL_RV_DIR}/include/ \
+        -I${ZLIB_RV_DIR}/include/ \
+        -I${GSL_RV_DIR}/include/ \
+        -I${LIBJPEG_RV_DIR}/include/ \
+        -I${GLIB_RV_DIR}/include/ \
+        -I${LIBXML2_RV_DIR}/include/"
+    export LDFLAGS="$LDFLAGS \
+        -L${OPENSSL_RV_DIR}/lib \
+        -L${ZLIB_RV_DIR}/lib \
+        -L${GSL_RV_DIR}/lib \
+        -L${LIBJPEG_RV_DIR}/lib \
+        -L${GLIB_RV_DIR}/lib \
+        -L${LIBXML2_RV_DIR}/lib"
 else
     CROSS_COMPILE_PREFIX=
 fi

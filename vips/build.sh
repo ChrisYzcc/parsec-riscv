@@ -1,7 +1,7 @@
 BENCH_DIR=${PARSECDIR}/vips
 
-export CXXFLAGS="${CXXFLAGS} -fexceptions -I/home/yzcc/riscv64-glib/include -I/home/yzcc/riscv64-libxml2/include"
-export LDFLAGS="${LDFLAGS} -lstdc++ -L/home/yzcc/riscv64-glib/lib -L/home/yzcc/riscv64-libxml2/lib"
+export CXXFLAGS="${CXXFLAGS} -fexceptions"
+export LDFLAGS="${LDFLAGS} -lstdc++"
 
 BUILD_DIR=${PARSECDIR}/vips/build/${PLATFORM}
 if [ ! -d "${BUILD_DIR}" ]; then
@@ -40,6 +40,7 @@ if [ "${PLATFORM}" = "rv64" ]; then
     --without-perl \
     --without-v4l \
     --without-cimg \
+    --enable-static \
     --enable-threads
 else
     ${BENCH_DIR}/src/configure \
@@ -62,6 +63,7 @@ else
     --without-perl \
     --without-v4l \
     --without-cimg \
+    --enable-static \
     --enable-threads
 fi
 
