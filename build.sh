@@ -101,7 +101,7 @@ if [ "${PROGRAM}" = "all" ]; then
             echo -e "\033[31m[ERROR] Build failed for ${prog}!\033[0m"
             FAILED_LIST="$FAILED_LIST $prog"
         fi
-        cd ..
+        cd ${PARSECDIR}
     done
 
     echo "============================================================================"
@@ -124,10 +124,10 @@ else
     ./build.sh
     if [ $? -ne 0 ]; then
         echo -e "\033[31m[ERROR] Build failed for ${PROGRAM}!\033[0m"
-        cd ..
+        cd ${PARSECDIR}
         exit 1
     fi
-    cd ..
+    cd ${PARSECDIR}
 
     echo "============================================================================"
     echo "  Build of ${PROGRAM} completed."
