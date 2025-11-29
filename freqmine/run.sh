@@ -7,6 +7,11 @@ else
     rm -rf ${RUN_DIR}/*
 fi
 
+if [ "${VERSION}" = "pthreads" ]; then
+    echo "Pthread version of Freqmine is not supported. Auto-selecting OpenMP version."
+    VERSION="openmp"
+fi
+
 # Unzip input file
 echo "Unzipping input file..."
 tar -xvf ${BENCH_DIR}/inputs/input_${INPUT}.tar -C ${RUN_DIR}

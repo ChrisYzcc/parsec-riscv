@@ -1,8 +1,8 @@
 rm -rf build/${PLATFORM}
 
 if [ "${VERSION}" = "pthreads" ]; then
-    echo "Pthread version of Freqmine is not supported."
-    exit 1
+    echo "Pthread version of Freqmine is not supported. Auto-selecting OpenMP version."
+    VERSION="openmp"
 fi
 
 export CXXFLAGS="${CXXFLAGS} -fopenmp"
