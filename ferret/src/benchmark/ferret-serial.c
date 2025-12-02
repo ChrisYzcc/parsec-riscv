@@ -27,6 +27,7 @@ Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 #include <cass_stat.h>
 #include <cass_timer.h>
 #include <../image/image.h>
+#include <float.h> 
 
 #ifdef ENABLE_PARSEC_HOOKS
 #include <hooks.h>
@@ -220,7 +221,7 @@ void do_query (const char *name)
 	ARRAY_BEGIN_FOREACH(result.u.list, cass_list_entry_t p)
 	{
 		char *obj = NULL;
-		if (p.dist == HUGE) continue;
+		if (p.dist == FLT_MAX) continue;
 		cass_map_id_to_dataobj(query_table->map, p.id, &obj);
 		assert(obj != NULL);
 		fprintf(fout, "\t%s:%g", obj, p.dist);
