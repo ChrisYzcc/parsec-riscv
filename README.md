@@ -48,7 +48,7 @@ RISC-V Platfrom: QEMU, Kunminghu Config
 | canneal       | *                     | *                     | *             | *             |
 | dedup         | *                     | *                     | *             | *             |
 | facesim       | *                     | *                     | *             | *             |
-| ferret        | *                     | *                     | ?             | ?             |
+| ferret        | *                     | *                     | *             | *             |
 | fluidanimate  | *                     | *                     | *             | *             |
 | freqmine      | *                     | *                     | *             | *             |
 | raytrace      | *                     | x                     | *             | x             |
@@ -57,12 +57,11 @@ RISC-V Platfrom: QEMU, Kunminghu Config
 | vips          | *                     | *                     | *             | x             |
 | x264          | *                     | *                     | *             | *             |
 
-* `ferret`: Occasionally assertion fail.
 * `raytrace`: Need mesa(openGL etc.) RISC-V support. In progress.
 * `vips`: Static compilation error for RISC-V. In progress.
 
 ## Future Work
-- [ ] `ferret` assertion fail.
+- [x] `ferret` assertion fail.
 - [ ] Solution for `raytrace`.
 - [ ] Static compilation for `vips`.
 - [ ] Packed extra libraries.
