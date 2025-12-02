@@ -27,12 +27,12 @@ Usage: ./gen_rv_pack.sh
 ```
 
 ## Dependent Libraries
-| Test Name     | Extra Lib Requirements    |
-| ----          | :----:                    |
-| ferret        | gsl, libjpeg              |
-| raytrace      | mesa                      |
-| vips          | glib, zlib, libxml2       |
-| dedup         | openssl, zlib             |
+| Test Name     | Extra Lib Requirements          |
+| ----          | :----:                          |
+| ferret        | gsl, libjpeg                    |
+| raytrace      | mesa                            |
+| vips          | glib, zlib, libxml2, ffi, pcre2 |
+| dedup         | openssl, zlib                   |
 
 Pay attention to the variable `${RV_LIB_PREFIX}` in `build.sh`. Currently, you need to compile all these libraries for RISC-V version PARSEC.
 
@@ -54,7 +54,7 @@ RISC-V Platfrom: QEMU, Kunminghu Config
 | raytrace      | *                     | x                     | *             | x             |
 | streamcluster | *                     | *                     | *             | *             |
 | swaptions     | *                     | *                     | *             | *             |
-| vips          | *                     | *                     | *             | x             |
+| vips          | *                     | *                     | *             | *             |
 | x264          | *                     | *                     | *             | *             |
 
 * `raytrace`: Need mesa(openGL etc.) RISC-V support. In progress.
@@ -63,5 +63,5 @@ RISC-V Platfrom: QEMU, Kunminghu Config
 ## Future Work
 - [x] `ferret` assertion fail.
 - [ ] Solution for `raytrace`.
-- [ ] Static compilation for `vips`.
+- [x] Static compilation for `vips`.
 - [ ] Packed extra libraries.
