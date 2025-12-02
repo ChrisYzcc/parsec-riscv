@@ -20,13 +20,20 @@ while getopts "p:rv:h" opt; do
 done
 
 # Arguments to use
-export CFLAGS=" -O3 -g -funroll-loops ${PORTABILITY_FLAGS} -static"
-export CXXFLAGS="-O3 -g -funroll-loops -fpermissive -fno-exceptions ${PORTABILITY_FLAGS} -std=c++98 -static"
+export CFLAGS=" -O3 -g -funroll-loops ${PORTABILITY_FLAGS}"
+export CXXFLAGS="-O3 -g -funroll-loops -fpermissive -fno-exceptions ${PORTABILITY_FLAGS} -std=c++98"
 export CPPFLAGS=""
 export CXXCPPFLAGS=""
-export LDFLAGS="-L${CC_HOME}/lib64 -L${CC_HOME}/lib -no-pie -static"
+export LDFLAGS="-L${CC_HOME}/lib64 -L${CC_HOME}/lib -no-pie"
 export LIBS=""
 export EXTRA_LIBS=""
+
+USE_STATIC=yes
+if [ "$USE_STATIC" = "yes" ]; then
+    export CFLAGS="${CFLAGS} -static"
+    export CXXFLAGS="${CXXFLAGS} -static"
+    export LDFLAGS="${LDFLAGS} -static"
+fi
 
 # RISC-V Version Tools
 RV_LIB_PREFIX="/home/yzcc"
