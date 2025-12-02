@@ -22,6 +22,8 @@ if [ "${PLATFORM}" = "rv64" ]; then
     ${BENCH_DIR}/src/configure \
     --prefix=${BUILD_DIR} \
     --host=riscv64-unknown-linux-gnu \
+    --with-libffi \
+    --with-libpcre2-8 \
     --disable-shared \
     --without-fftw3 \
     --without-magick \
@@ -37,9 +39,7 @@ if [ "${PLATFORM}" = "rv64" ]; then
     --without-libexif \
     --without-python \
     --without-x \
-    --without-perl \
     --without-v4l \
-    --without-cimg \
     --enable-static \
     --enable-threads
 else
@@ -60,9 +60,7 @@ else
     --without-libexif \
     --without-python \
     --without-x \
-    --without-perl \
     --without-v4l \
-    --without-cimg \
     --enable-static \
     --enable-threads
 fi

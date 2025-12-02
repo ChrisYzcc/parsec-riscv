@@ -447,6 +447,29 @@ if test x"$with_pangoft2" != "xno"; then
     ])
 fi
 
+# libffi
+AC_ARG_WITH([libffi],
+  AS_HELP_STRING([--with-libffi], [Use libffi if available]))
+if test "x$with_libffi" != "xno"; then
+  PKG_CHECK_MODULES([LIBFFI], [libffi],
+    [AC_DEFINE([HAVE_LIBFFI], [1], [Have libffi])
+     PACKAGES_USED="$PACKAGES_USED libffi"],
+    [AC_MSG_WARN([libffi not found; disabling libffi support])
+     with_libffi=no])
+fi
+
+# libpcre2-8
+AC_ARG_WITH([libpcre2],
+  AS_HELP_STRING([--with-libpcre2], [Use libpcre2-8 if available]))
+if test "x$with_libpcre2" != "xno"; then
+  PKG_CHECK_MODULES([PCRE2], [libpcre2-8],
+    [AC_DEFINE([HAVE_LIBPCRE2], [1], [Have libpcre2-8])
+     PACKAGES_USED="$PACKAGES_USED libpcre2-8"],
+    [AC_MSG_WARN([libpcre2-8 not found; disabling libpcre2-8 support])
+     with_libpcre2=no])
+fi
+
+
 # hmm, these don't have .pc files on ubuntu 5.10, how odd
 FIND_TIFF(
   [with_tiff=yes],
@@ -564,14 +587,14 @@ fi
 # Gather all up for VIPS_CFLAGS, VIPS_INCLUDES, VIPS_LIBS and VIPS_CXX_LIBS
 # sort includes to get longer, more specific dirs first
 # helps, for example, selecting graphicsmagick over imagemagick
-VIPS_CFLAGS=`for i in $VIPS_CFLAGS $GTHREAD_CFLAGS $REQUIRED_CFLAGS $PANGOFT2_CFLAGS $FFTW3_CFLAGS $MAGICK_CFLAGS $PNG_CFLAGS $EXIF_CFLAGS $MATIO_CFLAGS $OPENEXR_CFLAGS $LIBOIL_CFLAGS 
+VIPS_CFLAGS=`for i in $VIPS_CFLAGS $GTHREAD_CFLAGS $REQUIRED_CFLAGS $LIBFFI_CFLAGS $PCRE2_CFLAGS $PANGOFT2_CFLAGS $FFTW3_CFLAGS $MAGICK_CFLAGS $PNG_CFLAGS $EXIF_CFLAGS $MATIO_CFLAGS $OPENEXR_CFLAGS $LIBOIL_CFLAGS 
 do 
   echo $i 
 done | sort -ru`
 VIPS_CFLAGS=`echo $VIPS_CFLAGS`
 VIPS_CFLAGS="$VIPS_DEBUG_FLAGS $VIPS_CFLAGS"
 VIPS_INCLUDES="$PNG_INCLUDES $TIFF_INCLUDES $ZIP_INCLUDES $JPEG_INCLUDES $FFTW_INCLUDES $LCMS_INCLUDES" 
-VIPS_LIBS="$MAGICK_LIBS $PNG_LIBS $TIFF_LIBS $ZIP_LIBS $JPEG_LIBS $GTHREAD_LIBS $REQUIRED_LIBS $PANGOFT2_LIBS $FFTW3_LIBS $FFTW_LIBS $LCMS_LIBS $LIBOIL_LIBS $OPENEXR_LIBS $MATIO_LIBS $EXIF_LIBS -lm"
+VIPS_LIBS="$MAGICK_LIBS $PNG_LIBS $TIFF_LIBS $ZIP_LIBS $JPEG_LIBS $GTHREAD_LIBS $REQUIRED_LIBS $LIBFFI_LIBS $PCRE2_LIBS $PANGOFT2_LIBS $FFTW3_LIBS $FFTW_LIBS $LCMS_LIBS $LIBOIL_LIBS $OPENEXR_LIBS $MATIO_LIBS $EXIF_LIBS -lm"
 # need -lstdc++ for (eg.) the C++ format loaders
 VIPS_CXX_LIBS="-lstdc++"
 

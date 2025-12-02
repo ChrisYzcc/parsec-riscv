@@ -696,6 +696,10 @@ X_PRE_LIBS
 X_CFLAGS
 CPP
 XMKMF
+PCRE2_LIBS
+PCRE2_CFLAGS
+LIBFFI_LIBS
+LIBFFI_CFLAGS
 PANGOFT2_LIBS
 PANGOFT2_CFLAGS
 MATIO_LIBS
@@ -930,6 +934,8 @@ with_lcms
 with_OpenEXR
 with_matio
 with_pangoft2
+with_libffi
+with_libpcre2
 with_x
 with_tiff
 with_tiff_includes
@@ -990,6 +996,10 @@ MATIO_CFLAGS
 MATIO_LIBS
 PANGOFT2_CFLAGS
 PANGOFT2_LIBS
+LIBFFI_CFLAGS
+LIBFFI_LIBS
+PCRE2_CFLAGS
+PCRE2_LIBS
 XMKMF
 CPP
 PNG_CFLAGS
@@ -1669,6 +1679,8 @@ Optional Packages:
   --without-OpenEXR       build without OpenEXR (default: test)
   --without-matio         build without matio (default: test)
   --without-pangoft2      build without pangoft2 (default: test)
+  --with-libffi           Use libffi if available
+  --with-libpcre2         Use libpcre2-8 if available
   --with-x                use the X Window System
   --without-tiff          build without libtiff (default: test)
   --with-tiff-includes=DIR
@@ -1757,6 +1769,12 @@ Some influential environment variables:
               C compiler flags for PANGOFT2, overriding pkg-config
   PANGOFT2_LIBS
               linker flags for PANGOFT2, overriding pkg-config
+  LIBFFI_CFLAGS
+              C compiler flags for LIBFFI, overriding pkg-config
+  LIBFFI_LIBS linker flags for LIBFFI, overriding pkg-config
+  PCRE2_CFLAGS
+              C compiler flags for PCRE2, overriding pkg-config
+  PCRE2_LIBS  linker flags for PCRE2, overriding pkg-config
   XMKMF       Path to xmkmf, Makefile generator for X Window System
   CPP         C preprocessor
   PNG_CFLAGS  C compiler flags for PNG, overriding pkg-config
@@ -23422,6 +23440,185 @@ printf "%s\n" "#define HAVE_PANGOFT2 1" >>confdefs.h
 fi
 fi
 
+# libffi
+
+# Check whether --with-libffi was given.
+if test ${with_libffi+y}
+then :
+  withval=$with_libffi;
+fi
+
+if test "x$with_libffi" != "xno"; then
+
+pkg_failed=no
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for libffi" >&5
+printf %s "checking for libffi... " >&6; }
+
+if test -n "$LIBFFI_CFLAGS"; then
+    pkg_cv_LIBFFI_CFLAGS="$LIBFFI_CFLAGS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libffi\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "libffi") 2>&5
+  ac_status=$?
+  printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_LIBFFI_CFLAGS=`$PKG_CONFIG --cflags "libffi" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+if test -n "$LIBFFI_LIBS"; then
+    pkg_cv_LIBFFI_LIBS="$LIBFFI_LIBS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libffi\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "libffi") 2>&5
+  ac_status=$?
+  printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_LIBFFI_LIBS=`$PKG_CONFIG --libs "libffi" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+
+
+
+if test $pkg_failed = yes; then
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+printf "%s\n" "no" >&6; }
+
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
+else
+        _pkg_short_errors_supported=no
+fi
+        if test $_pkg_short_errors_supported = yes; then
+                LIBFFI_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libffi" 2>&1`
+        else
+                LIBFFI_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libffi" 2>&1`
+        fi
+        # Put the nasty error message in config.log where it belongs
+        echo "$LIBFFI_PKG_ERRORS" >&5
+
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: WARNING: libffi not found; disabling libffi support" >&5
+printf "%s\n" "$as_me: WARNING: libffi not found; disabling libffi support" >&2;}
+     with_libffi=no
+elif test $pkg_failed = untried; then
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+printf "%s\n" "no" >&6; }
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: WARNING: libffi not found; disabling libffi support" >&5
+printf "%s\n" "$as_me: WARNING: libffi not found; disabling libffi support" >&2;}
+     with_libffi=no
+else
+        LIBFFI_CFLAGS=$pkg_cv_LIBFFI_CFLAGS
+        LIBFFI_LIBS=$pkg_cv_LIBFFI_LIBS
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+printf "%s\n" "yes" >&6; }
+
+printf "%s\n" "#define HAVE_LIBFFI 1" >>confdefs.h
+
+     PACKAGES_USED="$PACKAGES_USED libffi"
+fi
+fi
+
+# libpcre2-8
+
+# Check whether --with-libpcre2 was given.
+if test ${with_libpcre2+y}
+then :
+  withval=$with_libpcre2;
+fi
+
+if test "x$with_libpcre2" != "xno"; then
+
+pkg_failed=no
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for libpcre2-8" >&5
+printf %s "checking for libpcre2-8... " >&6; }
+
+if test -n "$PCRE2_CFLAGS"; then
+    pkg_cv_PCRE2_CFLAGS="$PCRE2_CFLAGS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libpcre2-8\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "libpcre2-8") 2>&5
+  ac_status=$?
+  printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_PCRE2_CFLAGS=`$PKG_CONFIG --cflags "libpcre2-8" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+if test -n "$PCRE2_LIBS"; then
+    pkg_cv_PCRE2_LIBS="$PCRE2_LIBS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libpcre2-8\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "libpcre2-8") 2>&5
+  ac_status=$?
+  printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_PCRE2_LIBS=`$PKG_CONFIG --libs "libpcre2-8" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+
+
+
+if test $pkg_failed = yes; then
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+printf "%s\n" "no" >&6; }
+
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
+else
+        _pkg_short_errors_supported=no
+fi
+        if test $_pkg_short_errors_supported = yes; then
+                PCRE2_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libpcre2-8" 2>&1`
+        else
+                PCRE2_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libpcre2-8" 2>&1`
+        fi
+        # Put the nasty error message in config.log where it belongs
+        echo "$PCRE2_PKG_ERRORS" >&5
+
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: WARNING: libpcre2-8 not found; disabling libpcre2-8 support" >&5
+printf "%s\n" "$as_me: WARNING: libpcre2-8 not found; disabling libpcre2-8 support" >&2;}
+     with_libpcre2=no
+elif test $pkg_failed = untried; then
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+printf "%s\n" "no" >&6; }
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: WARNING: libpcre2-8 not found; disabling libpcre2-8 support" >&5
+printf "%s\n" "$as_me: WARNING: libpcre2-8 not found; disabling libpcre2-8 support" >&2;}
+     with_libpcre2=no
+else
+        PCRE2_CFLAGS=$pkg_cv_PCRE2_CFLAGS
+        PCRE2_LIBS=$pkg_cv_PCRE2_LIBS
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+printf "%s\n" "yes" >&6; }
+
+printf "%s\n" "#define HAVE_LIBPCRE2 1" >>confdefs.h
+
+     PACKAGES_USED="$PACKAGES_USED libpcre2-8"
+fi
+fi
+
+
 # hmm, these don't have .pc files on ubuntu 5.10, how odd
 ac_ext=c
 ac_cpp='$CPP $CPPFLAGS'
@@ -26003,14 +26200,14 @@ fi
 # Gather all up for VIPS_CFLAGS, VIPS_INCLUDES, VIPS_LIBS and VIPS_CXX_LIBS
 # sort includes to get longer, more specific dirs first
 # helps, for example, selecting graphicsmagick over imagemagick
-VIPS_CFLAGS=`for i in $VIPS_CFLAGS $GTHREAD_CFLAGS $REQUIRED_CFLAGS $PANGOFT2_CFLAGS $FFTW3_CFLAGS $MAGICK_CFLAGS $PNG_CFLAGS $EXIF_CFLAGS $MATIO_CFLAGS $OPENEXR_CFLAGS $LIBOIL_CFLAGS
+VIPS_CFLAGS=`for i in $VIPS_CFLAGS $GTHREAD_CFLAGS $REQUIRED_CFLAGS $LIBFFI_CFLAGS $PCRE2_CFLAGS $PANGOFT2_CFLAGS $FFTW3_CFLAGS $MAGICK_CFLAGS $PNG_CFLAGS $EXIF_CFLAGS $MATIO_CFLAGS $OPENEXR_CFLAGS $LIBOIL_CFLAGS
 do
   echo $i
 done | sort -ru`
 VIPS_CFLAGS=`echo $VIPS_CFLAGS`
 VIPS_CFLAGS="$VIPS_DEBUG_FLAGS $VIPS_CFLAGS"
 VIPS_INCLUDES="$PNG_INCLUDES $TIFF_INCLUDES $ZIP_INCLUDES $JPEG_INCLUDES $FFTW_INCLUDES $LCMS_INCLUDES"
-VIPS_LIBS="$MAGICK_LIBS $PNG_LIBS $TIFF_LIBS $ZIP_LIBS $JPEG_LIBS $GTHREAD_LIBS $REQUIRED_LIBS $PANGOFT2_LIBS $FFTW3_LIBS $FFTW_LIBS $LCMS_LIBS $LIBOIL_LIBS $OPENEXR_LIBS $MATIO_LIBS $EXIF_LIBS -lm"
+VIPS_LIBS="$MAGICK_LIBS $PNG_LIBS $TIFF_LIBS $ZIP_LIBS $JPEG_LIBS $GTHREAD_LIBS $REQUIRED_LIBS $LIBFFI_LIBS $PCRE2_LIBS $PANGOFT2_LIBS $FFTW3_LIBS $FFTW_LIBS $LCMS_LIBS $LIBOIL_LIBS $OPENEXR_LIBS $MATIO_LIBS $EXIF_LIBS -lm"
 # need -lstdc++ for (eg.) the C++ format loaders
 VIPS_CXX_LIBS="-lstdc++"
 

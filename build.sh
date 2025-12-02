@@ -28,13 +28,6 @@ export LDFLAGS="-L${CC_HOME}/lib64 -L${CC_HOME}/lib -no-pie"
 export LIBS=""
 export EXTRA_LIBS=""
 
-USE_STATIC=yes
-if [ "$USE_STATIC" = "yes" ]; then
-    export CFLAGS="${CFLAGS} -static"
-    export CXXFLAGS="${CXXFLAGS} -static"
-    export LDFLAGS="${LDFLAGS} -static"
-fi
-
 # RISC-V Version Tools
 RV_LIB_PREFIX="/home/yzcc"
 export OPENSSL_RV_DIR="${RV_LIB_PREFIX}/riscv64-openssl"
@@ -43,6 +36,8 @@ export GSL_RV_DIR="${RV_LIB_PREFIX}/riscv64-gsl"
 export LIBJPEG_RV_DIR="${RV_LIB_PREFIX}/riscv64-libjpeg"
 export GLIB_RV_DIR="${RV_LIB_PREFIX}/riscv64-glib"
 export LIBXML2_RV_DIR="${RV_LIB_PREFIX}/riscv64-libxml2"
+export LIBFFI_RV_DIR="${RV_LIB_PREFIX}/riscv64-libffi"
+export PCRE2_RV_DIR="${RV_LIB_PREFIX}/riscv64-pcre2"
 
 if [ "$PLATFORM" = "rv64" ]; then
     CROSS_COMPILE_PREFIX=riscv64-linux-gnu-
@@ -52,23 +47,36 @@ if [ "$PLATFORM" = "rv64" ]; then
         -I${GSL_RV_DIR}/include/ \
         -I${LIBJPEG_RV_DIR}/include/ \
         -I${GLIB_RV_DIR}/include/ \
-        -I${LIBXML2_RV_DIR}/include/"
+        -I${LIBXML2_RV_DIR}/include/ \
+        -I${LIBFFI_RV_DIR}/include/ \
+        -I${PCRE2_RV_DIR}/include/"
     export CXXFLAGS="$CXXFLAGS \
         -I${OPENSSL_RV_DIR}/include/ \
         -I${ZLIB_RV_DIR}/include/ \
         -I${GSL_RV_DIR}/include/ \
         -I${LIBJPEG_RV_DIR}/include/ \
         -I${GLIB_RV_DIR}/include/ \
-        -I${LIBXML2_RV_DIR}/include/"
+        -I${LIBXML2_RV_DIR}/include/ \
+        -I${LIBFFI_RV_DIR}/include/ \
+        -I${PCRE2_RV_DIR}/include/"
     export LDFLAGS="$LDFLAGS \
         -L${OPENSSL_RV_DIR}/lib \
         -L${ZLIB_RV_DIR}/lib \
         -L${GSL_RV_DIR}/lib \
         -L${LIBJPEG_RV_DIR}/lib \
         -L${GLIB_RV_DIR}/lib \
-        -L${LIBXML2_RV_DIR}/lib"
+        -L${LIBXML2_RV_DIR}/lib \
+        -L${LIBFFI_RV_DIR}/lib \
+        -L${PCRE2_RV_DIR}/lib"
 else
     CROSS_COMPILE_PREFIX=
+fi
+
+USE_STATIC=yes
+if [ "$USE_STATIC" = "yes" ]; then
+    export CFLAGS="${CFLAGS} -static"
+    export CXXFLAGS="${CXXFLAGS} -static"
+    export LDFLAGS="${LDFLAGS} -static"
 fi
 
 # Compilers and preprocessors

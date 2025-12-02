@@ -93,8 +93,14 @@
 /* Define if your <locale.h> file defines LC_MESSAGES. */
 #undef HAVE_LC_MESSAGES
 
+/* Have libffi */
+#undef HAVE_LIBFFI
+
 /* define if you have liboil-0.3 installed. */
 #undef HAVE_LIBOIL
+
+/* Have libpcre2-8 */
+#undef HAVE_LIBPCRE2
 
 /* Define to 1 if you have the <limits.h> header file. */
 #undef HAVE_LIMITS_H
