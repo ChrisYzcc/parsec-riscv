@@ -16,6 +16,10 @@ echo
 case $INPUT in
     "test") ARGS="5 100 10.nets 1";;
     "simdev") ARGS="100 300 100.nets 2";;
+    "simsmall") ARGS="10000 2000 100000.nets 32";;
+    "simmedium") ARGS="15000 2000 200000.nets 64";;
+    "simlarge") ARGS="15000 2000 400000.nets 128";;
+    *) echo "Invalid input size specified!"; exit 1 ;;
 esac
 
 # Run canneal

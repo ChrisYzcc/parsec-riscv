@@ -21,6 +21,10 @@ echo
 case $INPUT in
     "test") ARGS="${RUN_DIR}/T10I4D100K_3.dat 1" ;;
     "simdev") ARGS="${RUN_DIR}/T10I4D100K_1k.dat 3" ;;
+    "simsmall") ARGS="${RUN_DIR}/kosarak_250k.dat 220" ;;
+    "simmedium") ARGS="${RUN_DIR}/kosarak_500k.dat 410" ;;
+    "simlarge") ARGS="${RUN_DIR}/kosarak_990k.dat 790" ;;
+    *) echo "Invalid input size specified!"; exit 1 ;;
 esac
 
 export OMP_NUM_THREADS=${THREADS}

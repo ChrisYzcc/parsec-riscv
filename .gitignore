@@ -5,3 +5,8 @@ rv_pack
 
 parsec_rv_libs
 parsec-rv-libs.tar.gz
+
+parsec-sim-inputs.tar.gz
+input_simsmall.tar
+input_simmedium.tar
+input_simlarge.tar

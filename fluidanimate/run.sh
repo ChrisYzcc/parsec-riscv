@@ -16,6 +16,10 @@ echo
 case $INPUT in
     "test") ARGS="1 ${RUN_DIR}/in_5K.fluid" ;;
     "simdev") ARGS="3 ${RUN_DIR}/in_15K.fluid" ;;
+    "simsmall") ARGS="5 ${RUN_DIR}/in_35K.fluid" ;;
+    "simmedium") ARGS="5 ${RUN_DIR}/in_100K.fluid" ;;
+    "simlarge") ARGS="5 ${RUN_DIR}/in_300K.fluid" ;;
+    *) echo "Invalid input size specified!"; exit 1 ;;
 esac
 
 # Run fuildanimate

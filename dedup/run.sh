@@ -15,6 +15,10 @@ echo "Unzipping completed."
 case $INPUT in
     "test") ARGS="-c -p -v -i test.dat -o output.dat.ddp";;
     "simdev") ARGS="-c -p -v -i hamlet.dat -o output.dat.ddp";;
+    "simsmall") ARGS="-c -p -v -i media.dat -o output.dat.ddp";;
+    "simmedium") ARGS="-c -p -v -i media.dat -o output.dat.ddp";;
+    "simlarge") ARGS="-c -p -v -i media.dat -o output.dat.ddp";;
+    *) echo "Invalid input size specified!"; exit 1 ;
 esac
 
 # Run dedup

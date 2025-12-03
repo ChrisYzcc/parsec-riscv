@@ -16,6 +16,10 @@ echo
 case $INPUT in
     "test") ARGS="octahedron.obj -automove -nthreads ${THREADS} -frames 1 -res 1 1";;
     "simdev") ARGS="bunny.obj -automove -nthreads ${THREADS} -frames 1 -res 16 16";;
+    "simsmall") ARGS="happy_buddha.obj -automove -nthreads ${THREADS} -frames 3 -res 480 270";;
+    "simmedium") ARGS="happy_buddha.obj -automove -nthreads ${THREADS} -frames 3 -res 960 540";;
+    "simlarge") ARGS="happy_buddha.obj -automove -nthreads ${THREADS} -frames 3 -res 1920 1080";;
+    *) echo "Invalid input size specified!"; exit 1 ;;
 esac
 
 # Run raytrace

@@ -15,7 +15,11 @@ echo
 
 case $INPUT in
     "test") ARGS="corel lsh queries 5 5";;
-    "simdev") ARGS="corel lsh queries 50 5";;
+    "simdev") ARGS="corel lsh queries 5 5";;
+    "simsmall") ARGS="corel lsh queries 10 20";;
+    "simmedium") ARGS="corel lsh queries 10 20";;
+    "simlarge") ARGS="corel lsh queries 10 20";;
+    *) echo "Invalid input size specified!"; exit 1 ;;
 esac
 
 # Run ferret

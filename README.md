@@ -1,6 +1,10 @@
 # PARSEC Benchmark RISC-V Edition
 
 ## Command
+**Get Inputs**
+```
+./gen_inputs.sh
+```
 **Build Command**
 ```
 Usage: ./build.sh [-p program] [-r] [-v version] [-h]
@@ -53,17 +57,17 @@ RISC-V Platfrom: QEMU, Kunminghu Config
 | ferret        | *                     | *                     | *             | *             |
 | fluidanimate  | *                     | *                     | *             | *             |
 | freqmine      | *                     | *                     | *             | *             |
-| raytrace      | *                     | x                     | *             | x             |
+| raytrace      | *                     | x                     | ?             | x             |
 | streamcluster | *                     | *                     | *             | *             |
 | swaptions     | *                     | *                     | *             | *             |
 | vips          | *                     | *                     | *             | *             |
 | x264          | *                     | *                     | *             | *             |
 
-* `raytrace`: Need mesa(openGL etc.) RISC-V support. In progress. To run `raytrace` on native environment, you need to remove `-static` option in `build.sh`.
+* `raytrace`: Need mesa(openGL etc.) RISC-V support. In progress. To run `raytrace` on native environment, you need to remove `-static` option in `build.sh`. Not stable in native environment (sometimes cannot exit).
 
 ## Future Work
 - [x] `ferret` assertion fail.
 - [x] Static compilation for `vips`.
 - [x] Packed extra libraries.
-- [ ] `sim` size inputs.
+- [x] `sim` size inputs.
 - [ ] Solution for `raytrace`.

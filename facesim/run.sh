@@ -7,11 +7,6 @@ else
     rm -rf ${RUN_DIR}/*
 fi
 
-if [ "$INPUT" = "test" ]; then
-    echo "Test input is not supported."
-    exit 0
-fi
-
 # Unzip input file
 echo "Unzipping input file..."
 tar -xvf inputs/input_${INPUT}.tar -C ${RUN_DIR}
