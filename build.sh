@@ -3,7 +3,7 @@ export PARSECDIR=$(pwd)
 PLATFORM=native
 PROGRAM=blackscholes
 VERSION=pthreads
-ALL="blackscholes bodytrack canneal dedup facesim ferret fluidanimate freqmine streamcluster swaptions x264"
+ALL="blackscholes bodytrack canneal dedup facesim ferret fluidanimate freqmine streamcluster swaptions x264 vips"
 
 while getopts "p:rv:h" opt; do
     case "$opt" in
@@ -29,7 +29,7 @@ export LIBS=""
 export EXTRA_LIBS=""
 
 # RISC-V Version Tools
-RV_LIB_PREFIX="/home/yzcc"
+RV_LIB_PREFIX=${PARSECDIR}/parsec_rv_libs
 export OPENSSL_RV_DIR="${RV_LIB_PREFIX}/riscv64-openssl"
 export ZLIB_RV_DIR="${RV_LIB_PREFIX}/riscv64-zlib"
 export GSL_RV_DIR="${RV_LIB_PREFIX}/riscv64-gsl"
