@@ -26,7 +26,7 @@ Usage: ./run.sh [-p program] [-r] [-v version] [-h]
 Usage: ./gen_rv_pack.sh
 ```
 
-## Dependent Libraries
+## Required Libraries
 | Test Name     | Extra Lib Requirements          |
 | ----          | :----:                          |
 | ferret        | gsl, libjpeg                    |
@@ -34,7 +34,9 @@ Usage: ./gen_rv_pack.sh
 | vips          | glib, zlib, libxml2, ffi, pcre2 |
 | dedup         | openssl, zlib                   |
 
-Pay attention to the variable `${RV_LIB_PREFIX}` in `build.sh`. Currently, you need to compile all these libraries for RISC-V version PARSEC.
+To install extra required libraries, run `./install_rv_libs.sh` which will install libs to `parsec_rv_libs` in the PARSEC directories.
+
+You can also use your RISC-V version libraries. Remember to change `${RV_LIB_PREFIX}` in `build.sh`.
 
 ## Tests Summary
 Native Platform: x86_64, Debian on WSL2
@@ -62,5 +64,6 @@ RISC-V Platfrom: QEMU, Kunminghu Config
 ## Future Work
 - [x] `ferret` assertion fail.
 - [x] Static compilation for `vips`.
+- [x] Packed extra libraries.
+- [ ] `sim` size inputs.
 - [ ] Solution for `raytrace`.
-- [ ] Packed extra libraries.
