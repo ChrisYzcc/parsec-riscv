@@ -57,11 +57,10 @@ RISC-V Platfrom: QEMU, Kunminghu Config
 | vips          | *                     | *                     | *             | *             |
 | x264          | *                     | *                     | *             | *             |
 
-* `raytrace`: Need mesa(openGL etc.) RISC-V support. In progress.
-* `vips`: Static compilation error for RISC-V. In progress.
+* `raytrace`: Need mesa(openGL etc.) RISC-V support. In progress. To run `raytrace` on native environment, you need to remove `-static` option in `build.sh`.
 
 ## Future Work
 - [x] `ferret` assertion fail.
-- [ ] Solution for `raytrace`.
 - [x] Static compilation for `vips`.
+- [ ] Solution for `raytrace`.
 - [ ] Packed extra libraries.
