@@ -20,3 +20,4 @@ for PROGRAM in $ALL; do
 done
 
 cp -r ${PARSECDIR}/run.sh ${PARSECDIR}/rv_pack/
+sed -i 's|^\./run\.sh$|/bin/sh ./run.sh|' ${PARSECDIR}/rv_pack/run.sh

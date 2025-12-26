@@ -2,8 +2,8 @@ BENCH_DIR=${PARSECDIR}/x264
 BUILD_DIR=${PARSECDIR}/x264/build/${PLATFORM}
 
 # Set lower optimization level to avoid segmentation faults during runtime
-export CFLAGS=" -O0 -g -funroll-loops -fprefetch-loop-arrays ${PORTABILITY_FLAGS}"
-export CXXFLAGS="-O0 -g -funroll-loops -fprefetch-loop-arrays -fpermissive -fno-exceptions ${PORTABILITY_FLAGS} -std=c++98"
+export CFLAGS="${CFLAGS} -O0"
+export CXXFLAGS="${CXXFLAGS} -O0"
 
 rm -rf build/${PLATFORM}
 

@@ -5,15 +5,19 @@ PROGRAM=blackscholes
 VERSION=pthreads
 ALL="blackscholes bodytrack canneal dedup facesim ferret fluidanimate freqmine streamcluster swaptions x264 vips"
 
-while getopts "p:rv:h" opt; do
+ENABLE_CHECKPOINT=false
+
+while getopts "p:rv:ch" opt; do
     case "$opt" in
         p) PROGRAM=$OPTARG ;;
         r) PLATFORM=rv64 ;;
         v) VERSION=$OPTARG ;;
+        c) ENABLE_CHECKPOINT=true ;;
         h) echo "Usage: $0 [-p program] [-r] [-v version] [-h]"
            echo "  -p program : specify the program to build, default: blackscholes"
            echo "  -r          : set platform to rv64"
            echo "  -v version  : specify the version (pthreads, openmp, tbb), default: pthreads"
+           echo "  -c          : enable checkpoint"
            echo "  -h          : display this help message"
            exit 0 ;;
     esac
@@ -100,9 +104,40 @@ export MAKE=/usr/bin/make
 export PLATFORM
 export VERSION
 
+# Build parsec_hook for checkpoint
+if [ "${ENABLE_CHECKPOINT}" = "true" ]; then
+    echo "============================================================================"
+    echo "  Building Target : parsec_hooks (for checkpoint)"
+    echo "  Platform        : ${PLATFORM}"
+    echo "============================================================================"
+
+    if [ "${PLATFORM}" = "rv64" ]; then
+        export CFLAGS="${CFLAGS} -DNEMU"
+        export CXXFLAGS="${CXXFLAGS} -DNEMU"
+    fi
+
+    if [ ! -d "${PARSECDIR}/parsec_hooks/build/${PLATFORM}/obj" ]; then
+        mkdir -p ${PARSECDIR}/parsec_hooks/build/${PLATFORM}/obj
+        cp -r ${PARSECDIR}/parsec_hooks/src/* ${PARSECDIR}/parsec_hooks/build/${PLATFORM}/obj
+        make -C ${PARSECDIR}/parsec_hooks/build/${PLATFORM}/obj
+        make -C ${PARSECDIR}/parsec_hooks/build/${PLATFORM}/obj install
+
+        if [ $? -ne 0 ]; then
+            echo -e "\033[31m[ERROR] Build failed for parsec_hooks!\033[0m"
+            exit 1
+        fi
+    else
+        echo "  parsec_hooks already built for ${PLATFORM}, skipping."
+    fi
+    export CFLAGS="${CFLAGS} -I${PARSECDIR}/parsec_hooks/build/${PLATFORM}/include -DENABLE_PARSEC_HOOKS"
+    export CXXFLAGS="${CXXFLAGS} -I${PARSECDIR}/parsec_hooks/build/${PLATFORM}/include -DENABLE_PARSEC_HOOKS"
+    export LDFLAGS="${LDFLAGS} -L${PARSECDIR}/parsec_hooks/build/${PLATFORM}/lib -lhooks"
+    export LIBS="${LIBS} -lhooks"
+    echo "============================================================================"
+    echo
+fi
+
 if [ "${PROGRAM}" = "all" ]; then
-
-
     FAILED_LIST=""
     for prog in $ALL; do
         echo "============================================================================"
@@ -123,7 +158,7 @@ if [ "${PROGRAM}" = "all" ]; then
     echo "  Build of all programs completed."
     echo "============================================================================"
     if [ -n "$FAILED_LIST" ]; then
-        echo -e "\033[31m[ERROR] The following programs failed to build:$FAILED_LIST\033[0m"
+        echo "\033[31m[ERROR] The following programs failed to build:$FAILED_LIST\033[0m"
         exit 1
     fi
     exit 0
