@@ -213,12 +213,30 @@ void _halt(void *arg) {
   CPU_SET(cpu, &set);
 
   pthread_setaffinity_np(pthread_self(), sizeof(set), &set);
+  printf("[checkpoint] Halt on CPU %ld\n", cpu);
+  fflush(NULL);
 
   int code = 0;
   asm volatile("mv a0, %0; .word 0x0000006b" : :"r"(code));
 
   // should not reach here
   while (1);
+}
+
+void _exit_profiler(void *arg) {
+  long cpu = (long)arg;
+
+  cpu_set_t set;
+  CPU_ZERO(&set);
+  CPU_SET(cpu, &set);
+
+  pthread_setaffinity_np(pthread_self(), sizeof(set), &set);
+  printf("[checkpoint] Exit profiler on CPU %ld\n", cpu);
+  fflush(NULL);
+
+  nemu_signal(NOTIFY_PROFILE_EXIT);
+
+  return NULL;
 }
 
 #endif
@@ -303,7 +321,13 @@ void __parsec_roi_end() {
   pthread_t th[cpu_count];
 
   for (long i = 0; i < cpu_count; i++) {
-      pthread_create(&th[i], NULL, _halt, (void*)i);
+#ifdef ENABLE_PROFILING
+    // notify profiler to exit
+    pthread_create(&th[i], NULL, _exit_profiler, (void*)i);
+#else
+    // halt all cores
+    pthread_create(&th[i], NULL, _halt, (void*)i);
+#endif
   }
 
   for (int i = 0; i < cpu_count; i++) {
