@@ -23,4 +23,4 @@ case $INPUT in
 esac
 
 # Run fuildanimate
-$(pwd)/build/${PLATFORM}/bin/fluidanimate-${VERSION} ${THREADS} ${ARGS} 
+$(pwd)/build/${PLATFORM}/${USAGE}/bin/fluidanimate-${VERSION} ${THREADS} ${ARGS} 

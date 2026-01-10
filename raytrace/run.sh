@@ -24,5 +24,5 @@ esac
 
 # Run raytrace
 cd ${RUN_DIR}
-${BENCH_DIR}/build/${PLATFORM}/bin/rtview-${VERSION} ${ARGS}
+${BENCH_DIR}/build/${PLATFORM}/${USAGE}/bin/rtview-${VERSION} ${ARGS}
 cd ${BENCH_DIR}

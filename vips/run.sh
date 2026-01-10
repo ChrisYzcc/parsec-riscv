@@ -25,5 +25,5 @@ esac
 # Run vips
 cd ${RUN_DIR}
 export IM_CONCURRENCY=${THREADS}
-${BENCH_DIR}/build/${PLATFORM}/bin/vips-${VERSION} ${ARGS}
+${BENCH_DIR}/build/${PLATFORM}/${USAGE}/bin/vips-${VERSION} ${ARGS}
 cd ${BENCH_DIR}

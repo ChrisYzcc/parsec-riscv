@@ -24,5 +24,5 @@ esac
 
 # Run
 cd ${RUN_DIR}
-${BENCH_DIR}/build/${PLATFORM}/bin/x264-${VERSION} ${ARGS} --threads ${THREADS}
+${BENCH_DIR}/build/${PLATFORM}/${USAGE}/bin/x264-${VERSION} ${ARGS} --threads ${THREADS}
 cd ${BENCH_DIR}

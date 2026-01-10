@@ -24,5 +24,5 @@ esac
 
 # Run ferret
 cd ${RUN_DIR}
-${BENCH_DIR}/build/${PLATFORM}/bin/ferret-${VERSION} ${ARGS} ${THREADS} output.txt
+${BENCH_DIR}/build/${PLATFORM}/${USAGE}/bin/ferret-${VERSION} ${ARGS} ${THREADS} output.txt
 cd ${BENCH_DIR}

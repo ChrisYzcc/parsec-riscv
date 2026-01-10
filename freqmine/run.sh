@@ -30,4 +30,4 @@ esac
 export OMP_NUM_THREADS=${THREADS}
 
 # Run freqmine
-${BENCH_DIR}/build/${PLATFORM}/bin/freqmine-${VERSION} ${ARGS}
+${BENCH_DIR}/build/${PLATFORM}/${USAGE}/bin/freqmine-${VERSION} ${ARGS}

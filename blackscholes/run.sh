@@ -1,4 +1,5 @@
 RUN_DIR="$(pwd)/build/${PLATFORM}/run"
+
 if [ ! -d "${RUN_DIR}" ]; then
     mkdir -p ${RUN_DIR}
 else
@@ -23,4 +24,4 @@ case $INPUT in
     *) echo "Invalid input size specified!"; exit 1 ;;
 esac
 
-$(pwd)/build/${PLATFORM}/bin/blackscholes-${VERSION} ${THREADS} $ARGS
+$(pwd)/build/${PLATFORM}/${USAGE}/bin/blackscholes-${VERSION} ${THREADS} $ARGS

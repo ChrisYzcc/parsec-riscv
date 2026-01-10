@@ -24,5 +24,5 @@ esac
 
 # Run canneal
 cd ${RUN_DIR}
-${BENCH_DIR}/build/${PLATFORM}/bin/canneal-${VERSION} ${THREADS} ${ARGS}
+${BENCH_DIR}/build/${PLATFORM}/${USAGE}/bin/canneal-${VERSION} ${THREADS} ${ARGS}
 cd ${BENCH_DIR}

@@ -23,5 +23,5 @@ esac
 
 # Run dedup
 cd ${RUN_DIR}
-${BENCH_DIR}/build/${PLATFORM}/bin/dedup-${VERSION} ${ARGS} -t ${THREADS} 
+${BENCH_DIR}/build/${PLATFORM}/${USAGE}/bin/dedup-${VERSION} ${ARGS} -t ${THREADS} 
 cd ${BENCH_DIR}

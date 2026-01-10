@@ -15,5 +15,5 @@ echo
 
 # Run facesim
 cd ${RUN_DIR}
-${BENCH_DIR}/build/${PLATFORM}/bin/facesim-${VERSION} -timing -threads ${THREADS}
+${BENCH_DIR}/build/${PLATFORM}/${USAGE}/bin/facesim-${VERSION} -timing -threads ${THREADS}
 cd ${BENCH_DIR}

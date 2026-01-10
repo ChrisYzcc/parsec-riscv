@@ -17,4 +17,4 @@ case $INPUT in
 esac
 
 # Run swaptions
-${BENCH_DIR}/build/${PLATFORM}/bin/swaptions-${VERSION} ${ARGS} -nt ${THREADS}
+${BENCH_DIR}/build/${PLATFORM}/${USAGE}/bin/swaptions-${VERSION} ${ARGS} -nt ${THREADS}

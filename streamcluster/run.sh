@@ -23,5 +23,5 @@ esac
 
 # Run streamcluster
 cd ${RUN_DIR}
-${BENCH_DIR}/build/${PLATFORM}/bin/streamcluster-${VERSION} ${ARGS} output.txt ${THREADS}
+${BENCH_DIR}/build/${PLATFORM}/${USAGE}/bin/streamcluster-${VERSION} ${ARGS} output.txt ${THREADS}
 cd ${BENCH_DIR}
