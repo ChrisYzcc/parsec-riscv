@@ -1,13 +1,7 @@
 BENCH_DIR=${PARSECDIR}/raytrace
-BUILD_DIR=${BENCH_DIR}/build/${PLATFORM}
+BUILD_DIR=${BENCH_DIR}/build/${PLATFORM}/${USAGE}
 
 export CXXFLAGS="${CXXFLAGS} -fexceptions -fno-strict-aliasing -fno-align-labels -DNDEBUG -D_MM_NO_ALIGN_CHECK"
-
-if [ ! -d "${BUILD_DIR}" ]; then
-    mkdir -p ${BUILD_DIR}
-else
-    rm -rf ${BUILD_DIR}/*
-fi
 
 # Compile in tmp dir
 mkdir -p ${BUILD_DIR}/obj
@@ -25,6 +19,7 @@ cmake -G "Unix Makefiles"\
         -Wno-dev \
         .
 
+rm -rf ${BUILD_DIR}/bin/*
 make -j$(nproc)
 make install
 
@@ -32,3 +27,8 @@ make install
 for f in "${BUILD_DIR}/bin/"*; do
     mv "$f" "${f}-${VERSION}"
 done
+
+# check if the build was successful
+if [ ! -f ${BENCH_DIR}/build/${PLATFORM}/${USAGE}/bin/raytrace-${VERSION} ]; then
+    exit 1
+fi

@@ -3,12 +3,7 @@ BENCH_DIR=${PARSECDIR}/vips
 export CXXFLAGS="${CXXFLAGS} -fexceptions"
 export LDFLAGS="${LDFLAGS} -lstdc++"
 
-BUILD_DIR=${PARSECDIR}/vips/build/${PLATFORM}
-if [ ! -d "${BUILD_DIR}" ]; then
-    mkdir -p ${BUILD_DIR}
-else
-    rm -rf ${BUILD_DIR}/*
-fi
+BUILD_DIR=${PARSECDIR}/vips/build/${PLATFORM}/${USAGE}
 
 cd src
 autoreconf -fiv
@@ -65,6 +60,7 @@ else
     --enable-threads
 fi
 
+rm -rf ${BUILD_DIR}/bin/*
 make -C ${BUILD_DIR}/obj -j$(nproc)
 make -C ${BUILD_DIR}/obj install
 
@@ -72,3 +68,8 @@ make -C ${BUILD_DIR}/obj install
 for f in "${BUILD_DIR}/bin/"*; do
     mv "$f" "${f}-${VERSION}"
 done
+
+# check if the build was successful
+if [ ! -f ${BENCH_DIR}/build/${PLATFORM}/${USAGE}/bin/vips-${VERSION} ]; then
+    exit 1
+fi

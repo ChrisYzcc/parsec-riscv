@@ -1,6 +1,6 @@
 # Makefile for dedup kernel
 
-PREFIX=${PARSECDIR}/dedup/build/${PLATFORM}
+PREFIX=${PARSECDIR}/dedup/build/${PLATFORM}/${USAGE}
 
 TARGET=dedup
 

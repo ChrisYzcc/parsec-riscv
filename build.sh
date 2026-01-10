@@ -5,23 +5,30 @@ PROGRAM=blackscholes
 VERSION=pthreads
 ALL="blackscholes bodytrack canneal dedup facesim ferret fluidanimate freqmine streamcluster swaptions x264 vips"
 
+USAGE="normal"
 ENABLE_CHECKPOINT=false
 
-while getopts "p:rv:ch" opt; do
+while getopts "p:ru:hv:" opt; do
     case "$opt" in
         p) PROGRAM=$OPTARG ;;
         r) PLATFORM=rv64 ;;
+        u) USAGE=$OPTARG ;;
         v) VERSION=$OPTARG ;;
-        c) ENABLE_CHECKPOINT=true ;;
-        h) echo "Usage: $0 [-p program] [-r] [-v version] [-h]"
-           echo "  -p program : specify the program to build, default: blackscholes"
-           echo "  -r          : set platform to rv64"
-           echo "  -v version  : specify the version (pthreads, openmp, tbb), default: pthreads"
-           echo "  -c          : enable checkpoint"
-           echo "  -h          : display this help message"
+        h) echo "Usage: $0 [-p program] [-r] [-h] [-u usage]"
+           echo "  -p program   : specify the program to build. Default: barnes"
+           echo "  -r           : set platform to rv64"
+           echo "  -v           : set version: pthreads, openmp. Default: pthreads"
+           echo "  -u           : set usage: normal, profiling, checkpoint. Default: normal"
+           echo "  -h           : display this help message"
            exit 0 ;;
     esac
 done
+
+# Check Version
+if [ "${VERSION}" != "pthreads" ] && [ "${VERSION}" != "openmp" ]; then
+    echo "\033[31m[ERROR] Unknown version: ${VERSION}\033[0m"
+    exit 1
+fi
 
 # Arguments to use
 export CFLAGS=" -O3 -g -funroll-loops ${PORTABILITY_FLAGS}"
@@ -104,10 +111,24 @@ export MAKE=/usr/bin/make
 export PLATFORM
 export VERSION
 
+# Check usage mode
+if [ "$USAGE" = "checkpoint" ]; then
+    ENABLE_CHECKPOINT=true
+elif [ "$USAGE" = "profiling" ]; then
+    ENABLE_CHECKPOINT=true
+    export CFLAGS="${CFLAGS} -DENABLE_PROFILING"
+    export CXXFLAGS="${CXXFLAGS} -DENABLE_PROFILING"
+elif [ "$USAGE" != "normal" ]; then
+    echo "\033[31m[ERROR] Unknown usage mode: $USAGE\033[0m"
+    exit 1
+fi
+
+export USAGE
+
 # Build parsec_hook for checkpoint
 if [ "${ENABLE_CHECKPOINT}" = "true" ]; then
     echo "============================================================================"
-    echo "  Building Target : parsec_hooks (for checkpoint)"
+    echo "  Building Target : parsec_hooks (FOR CHECKPOINTING AND PROFILING)"
     echo "  Platform        : ${PLATFORM}"
     echo "============================================================================"
 
@@ -116,23 +137,27 @@ if [ "${ENABLE_CHECKPOINT}" = "true" ]; then
         export CXXFLAGS="${CXXFLAGS} -DNEMU"
     fi
 
-    if [ ! -d "${PARSECDIR}/parsec_hooks/build/${PLATFORM}/obj" ]; then
-        mkdir -p ${PARSECDIR}/parsec_hooks/build/${PLATFORM}/obj
-        cp -r ${PARSECDIR}/parsec_hooks/src/* ${PARSECDIR}/parsec_hooks/build/${PLATFORM}/obj
-        make -C ${PARSECDIR}/parsec_hooks/build/${PLATFORM}/obj
-        make -C ${PARSECDIR}/parsec_hooks/build/${PLATFORM}/obj install
+    if [ ! -d "${PARSECDIR}/parsec_hooks/build/${PLATFORM}/${USAGE}/lib" ]; then
+        mkdir -p ${PARSECDIR}/parsec_hooks/build/${PLATFORM}/${USAGE}/obj
+        cp -r ${PARSECDIR}/parsec_hooks/src/* ${PARSECDIR}/parsec_hooks/build/${PLATFORM}/${USAGE}/obj
+        make -C ${PARSECDIR}/parsec_hooks/build/${PLATFORM}/${USAGE}/obj
+        make -C ${PARSECDIR}/parsec_hooks/build/${PLATFORM}/${USAGE}/obj install
 
         if [ $? -ne 0 ]; then
-            echo -e "\033[31m[ERROR] Build failed for parsec_hooks!\033[0m"
+            echo "\033[31m[ERROR] Build failed for parsec_hooks!\033[0m"
             exit 1
+        else
+            echo "\033[32mparsec_hooks built successfully for ${PLATFORM}, ${USAGE}.\033[0m"
         fi
     else
-        echo "  parsec_hooks already built for ${PLATFORM}, skipping."
+        echo "  parsec_hooks already built for ${PLATFORM}, ${USAGE}, skipping."
     fi
-    export CFLAGS="${CFLAGS} -I${PARSECDIR}/parsec_hooks/build/${PLATFORM}/include -DENABLE_PARSEC_HOOKS"
-    export CXXFLAGS="${CXXFLAGS} -I${PARSECDIR}/parsec_hooks/build/${PLATFORM}/include -DENABLE_PARSEC_HOOKS"
-    export LDFLAGS="${LDFLAGS} -L${PARSECDIR}/parsec_hooks/build/${PLATFORM}/lib -lhooks"
+
+    export CFLAGS="${CFLAGS} -I${PARSECDIR}/parsec_hooks/build/${PLATFORM}/${USAGE}/include -DENABLE_PARSEC_HOOKS"
+    export CXXFLAGS="${CXXFLAGS} -I${PARSECDIR}/parsec_hooks/build/${PLATFORM}/${USAGE}/include -DENABLE_PARSEC_HOOKS"
+    export LDFLAGS="${LDFLAGS} -L${PARSECDIR}/parsec_hooks/build/${PLATFORM}/${USAGE}/lib -lhooks"
     export LIBS="${LIBS} -lhooks"
+
     echo "============================================================================"
     echo
 fi
@@ -144,12 +169,15 @@ if [ "${PROGRAM}" = "all" ]; then
         echo "  Building Target : ${prog}"
         echo "  Platform        : ${PLATFORM}"
         echo "  Version         : ${VERSION}"
+        echo "  USAGE           : ${USAGE}"
         echo "============================================================================"
         cd ${prog}
         ./build.sh
         if [ $? -ne 0 ]; then
-            echo -e "\033[31m[ERROR] Build failed for ${prog}!\033[0m"
+            echo "\033[31m[ERROR] Build failed for ${prog}!\033[0m"
             FAILED_LIST="$FAILED_LIST $prog"
+        else
+            echo "\033[32m${prog} built successfully for ${PLATFORM}, ${USAGE}.\033[0m"
         fi
         cd ${PARSECDIR}
     done
@@ -167,15 +195,15 @@ else
     echo "  Building Target : ${PROGRAM}"
     echo "  Platform        : ${PLATFORM}"
     echo "  Version         : ${VERSION}"
+    echo "  USAGE           : ${USAGE}"
     echo "============================================================================"
-
 
     cd ${PROGRAM}
     ./build.sh
     if [ $? -ne 0 ]; then
-        echo -e "\033[31m[ERROR] Build failed for ${PROGRAM}!\033[0m"
-        cd ${PARSECDIR}
-        exit 1
+        echo "\033[31m[ERROR] Build failed for ${PROGRAM}!\033[0m"
+    else
+        echo "\033[32m${PROGRAM} built successfully for ${PLATFORM}, ${USAGE}.\033[0m"
     fi
     cd ${PARSECDIR}
 

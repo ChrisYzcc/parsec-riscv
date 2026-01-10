@@ -1,13 +1,15 @@
-rm -rf build/${PLATFORM}
-
 if [ "${VERSION}" = "openmp" ]; then
-    echo "OpenMP version of Streamcluster is not supported."
-    exit 1
+    echo "\033[33m[warning] OpenMP version of Streamcluster is not supported. Automatically switching to pthreads version.\033[0m"
+    VERSION="pthreads"
 fi
 
+mkdir -p ${PARSECDIR}/streamcluster/build/${PLATFORM}/${USAGE}/obj
+cp -r src/* ${PARSECDIR}/streamcluster/build/${PLATFORM}/${USAGE}/obj
 
-mkdir -p ${PARSECDIR}/streamcluster/build/${PLATFORM}/obj
-cp -r src/* ${PARSECDIR}/streamcluster/build/${PLATFORM}/obj
+make -C ${PARSECDIR}/streamcluster/build/${PLATFORM}/${USAGE}/obj version=${VERSION}
+make -C ${PARSECDIR}/streamcluster/build/${PLATFORM}/${USAGE}/obj install version=${VERSION}
 
-make -C ${PARSECDIR}/streamcluster/build/${PLATFORM}/obj version=${VERSION}
-make -C ${PARSECDIR}/streamcluster/build/${PLATFORM}/obj install version=${VERSION}
+# check if the build was successful
+if [ ! -f ${PARSECDIR}/streamcluster/build/${PLATFORM}/${USAGE}/bin/streamcluster-${VERSION} ]; then
+    exit 1
+fi

@@ -1,4 +1,4 @@
-PREFIX=${PARSECDIR}/blackscholes/build/${PLATFORM}
+PREFIX=${PARSECDIR}/blackscholes/build/${PLATFORM}/${USAGE}
 
 CSRC    = $(SRC)
 TARGET  = blackscholes-$(VERSION)

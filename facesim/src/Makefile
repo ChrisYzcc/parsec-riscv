@@ -1,4 +1,4 @@
-PREFIX		:= ${PARSECDIR}/facesim/build/${PLATFORM}
+PREFIX		:= ${PARSECDIR}/facesim/build/${PLATFORM}/${USAGE}
 BINARY		:= facesim
 
 ifdef version

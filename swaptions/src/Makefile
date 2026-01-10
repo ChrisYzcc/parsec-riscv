@@ -1,4 +1,4 @@
-PREFIX := ${PARSECDIR}/swaptions/build/${PLATFORM}
+PREFIX := ${PARSECDIR}/swaptions/build/${PLATFORM}/${USAGE}
 DEF =
 INCLUDE =
 

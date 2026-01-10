@@ -1,13 +1,15 @@
-rm -rf build/${PLATFORM}
-
 if [ "${VERSION}" = "openmp" ]; then
-    echo "OpenMP version of dedup is not supported."
-    exit 1
+    echo "\033[33m[warning] OpenMP version of dedup is not supported. Automatically switching to pthreads version.\033[0m"
+    VERSION="pthreads"
 fi
 
+mkdir -p ${PARSECDIR}/dedup/build/${PLATFORM}/${USAGE}/obj
+cp -r src/* ${PARSECDIR}/dedup/build/${PLATFORM}/${USAGE}/obj
 
-mkdir -p ${PARSECDIR}/dedup/build/${PLATFORM}/obj
-cp -r src/* ${PARSECDIR}/dedup/build/${PLATFORM}/obj
+make -C ${PARSECDIR}/dedup/build/${PLATFORM}/${USAGE}/obj version=${VERSION}
+make -C ${PARSECDIR}/dedup/build/${PLATFORM}/${USAGE}/obj install version=${VERSION}
 
-make -C ${PARSECDIR}/dedup/build/${PLATFORM}/obj version=${VERSION}
-make -C ${PARSECDIR}/dedup/build/${PLATFORM}/obj install version=${VERSION}
+# check if the build was successful
+if [ ! -f ${PARSECDIR}/dedup/build/${PLATFORM}/${USAGE}/bin/dedup-${VERSION} ]; then
+    exit 1
+fi

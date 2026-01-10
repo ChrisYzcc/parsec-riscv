@@ -1,4 +1,4 @@
-PREFIX=${PARSECDIR}/freqmine/build/${PLATFORM}
+PREFIX=${PARSECDIR}/freqmine/build/${PLATFORM}/${USAGE}
 TARGET = freqmine
 
 CXXFLAGS += -Wno-deprecated

@@ -1,6 +1,6 @@
 # Makefile for parallel simulated annealer
 
-PREFIX=${PARSECDIR}/canneal/build/${PLATFORM}
+PREFIX=${PARSECDIR}/canneal/build/${PLATFORM}/${USAGE}
 
 TARGET=canneal
 LIBS:=$(LIBS) -lm

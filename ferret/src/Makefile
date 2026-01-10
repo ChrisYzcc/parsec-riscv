@@ -1,4 +1,4 @@
-PREFIX = ${PARSECDIR}/ferret/build/${PLATFORM}
+PREFIX = ${PARSECDIR}/ferret/build/${PLATFORM}/${USAGE}
 TARGET = ferret
 ARCH = parsec
 

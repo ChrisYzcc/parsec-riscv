@@ -3,12 +3,7 @@ BENCH_DIR=${PARSECDIR}/bodytrack
 export CXXFLAGS="${CXXFLAGS} -fexceptions"
 export VPATH="${BENCH_DIR}/src"
 
-BUILD_DIR=${PARSECDIR}/bodytrack/build/${PLATFORM}
-if [ ! -d "${BUILD_DIR}" ]; then
-    mkdir -p ${BUILD_DIR}
-else
-    rm -rf ${BUILD_DIR}/*
-fi
+BUILD_DIR=${PARSECDIR}/bodytrack/build/${PLATFORM}/${USAGE}
 
 cd src
 autoreconf -fiv
@@ -36,3 +31,8 @@ make -C ${BUILD_DIR}/obj version=${VERSION} install
 
 # Rename the executable to include platform and version info
 mv ${BUILD_DIR}/bin/bodytrack ${BUILD_DIR}/bin/bodytrack-${VERSION}
+
+# check if the build was successful
+if [ ! -f ${BENCH_DIR}/build/${PLATFORM}/${USAGE}/bin/bodytrack-${VERSION} ]; then
+    exit 1
+fi

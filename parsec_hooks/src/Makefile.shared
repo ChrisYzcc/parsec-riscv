@@ -3,7 +3,7 @@
 # Copyright (C) 2006-2009 by Princeton University
 # Author: Christian Bienia
 
-PREFIX=${PARSECDIR}/parsec_hooks/build/${PLATFORM}
+PREFIX=${PARSECDIR}/parsec_hooks/build/${PLATFORM}/${USAGE}
 LIBTOOL=libtool
 
 INCLUDEDIR=include

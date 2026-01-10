@@ -1,4 +1,4 @@
-PREFIX=${PARSECDIR}/fluidanimate/build/${PLATFORM}
+PREFIX=${PARSECDIR}/fluidanimate/build/${PLATFORM}/${USAGE}
 TARGET=fluidanimate
 
 CXXFLAGS += -Wno-invalid-offsetof

@@ -1,16 +1,14 @@
 BENCH_DIR=${PARSECDIR}/x264
-BUILD_DIR=${PARSECDIR}/x264/build/${PLATFORM}
+BUILD_DIR=${PARSECDIR}/x264/build/${PLATFORM}/${USAGE}
 
 # Set lower optimization level to avoid segmentation faults during runtime
 export CFLAGS="${CFLAGS} -O0"
 export CXXFLAGS="${CXXFLAGS} -O0"
 
-rm -rf build/${PLATFORM}
+mkdir -p ${PARSECDIR}/x264/build/${PLATFORM}/${USAGE}/obj
+cp -r src/* ${PARSECDIR}/x264/build/${PLATFORM}/${USAGE}/obj
 
-mkdir -p ${PARSECDIR}/x264/build/${PLATFORM}/obj
-cp -r src/* ${PARSECDIR}/x264/build/${PLATFORM}/obj
-
-cd ${PARSECDIR}/x264/build/${PLATFORM}/obj
+cd ${PARSECDIR}/x264/build/${PLATFORM}/${USAGE}/obj
 rm -f .depend
 
 if [ "${PLATFORM}" = "rv64" ]; then
@@ -24,3 +22,8 @@ make version=${VERSION} install
 
 # Rename
 mv ${BUILD_DIR}/bin/x264 ${BUILD_DIR}/bin/x264-${VERSION}
+
+# check if the build was successful
+if [ ! -f ${BENCH_DIR}/build/${PLATFORM}/${USAGE}/bin/x264-${VERSION} ]; then
+    exit 1
+fi

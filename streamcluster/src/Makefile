@@ -1,6 +1,6 @@
 # Makefile for streamcluster
 
-PREFIX=${PARSECDIR}/streamcluster/build/${PLATFORM}
+PREFIX=${PARSECDIR}/streamcluster/build/${PLATFORM}/${USAGE}
 
 TARGET=streamcluster
 OBJS=streamcluster.o
