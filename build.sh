@@ -14,7 +14,7 @@ while getopts "p:ru:hv:" opt; do
         r) PLATFORM=rv64 ;;
         u) USAGE=$OPTARG ;;
         v) VERSION=$OPTARG ;;
-        h) echo "Usage: $0 [-p program] [-r] [-h] [-u usage]"
+        h) echo "Usage: $0 [-p program] [-r] [-v version] [-u usage] [-h]"
            echo "  -p program   : specify the program to build. Default: barnes"
            echo "  -r           : set platform to rv64"
            echo "  -v           : set version: pthreads, openmp. Default: pthreads"

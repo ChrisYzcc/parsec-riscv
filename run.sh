@@ -14,7 +14,7 @@ while getopts "p:rv:hi:n:u:" opt; do
         i) INPUT=$OPTARG ;;
         n) THREADS=$OPTARG ;;
         u) USAGE=$OPTARG ;;
-        h) echo "Usage: $0 [-p program] [-r] [-v version] [-h]"
+        h) echo "Usage: $0 [-p program] [-r] [-u usage] [-v version] [-i input] [-n threads] [-h]"
            echo "  -p program   : specify the program to run, default: blackscholes"
            echo "  -r           : set platform to rv64"
            echo "  -u usage     : set usage: normal, profiling, checkpoint. default: normal \\n \
