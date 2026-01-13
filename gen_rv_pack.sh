@@ -28,13 +28,16 @@ if [ "$USAGE" != "normal" ] && [ "$USAGE" != "profiling" ] && [ "$USAGE" != "che
     exit 1
 fi
 
+SUPPORTED_INPUTS="test simdev simsmall simmedium simlarge"
 INPUT_LIST=""
-if [ "$INPUTS" = "test" ]; then
-    INPUT_LIST="test"
-else
-    echo "\033[31m[ERROR] Unknown inputs: $INPUTS\033[0m"
-    exit 1
-fi
+for INPUT in $INPUTS; do
+    if echo "$SUPPORTED_INPUTS" | grep -wq "$INPUT"; then
+        INPUT_LIST="$INPUT_LIST $INPUT"
+    else
+        echo "\033[31m[ERROR] Unsupported input set: $INPUT\033[0m"
+        exit 1
+    fi
+done
 
 echo "==========================================================="
 echo "  Input sets to package   : $INPUT_LIST"
