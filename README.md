@@ -3,9 +3,9 @@
 ## Command
 **Get Inputs**
 
-To install simulation scale inputs:
+To install simulation scale inputs (simsmall/simmedium/simlarge):
 ```bash
-./gen_inputs.sh
+./intall_inputs.sh
 ```
 **Build Command**
 ```
