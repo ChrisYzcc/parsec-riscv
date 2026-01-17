@@ -49,7 +49,7 @@ Usage: ./gen_rv_pack.sh [-i inputs] [-u usage] [-h]
 | vips          | glib, zlib, libxml2, ffi, pcre2 |
 | dedup         | openssl, zlib                   |
 
-To install extra required libraries, run `./install_rv_libs.sh` which will install libs to `parsec_rv_libs` in the PARSEC directory. Currently, libraries required by `raytrace` is not supported.
+To install extra required libraries, run `./install_rv_libs.sh` which will install libs to `parsec_rv_libs` in the PARSEC directory. Currently, libraries required by `raytrace` are not supported.
 
 You can also use your RISC-V version libraries. Remember to change `${RV_LIB_PREFIX}` in `build.sh`.
 
