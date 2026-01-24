@@ -10,7 +10,7 @@ To install simulation scale inputs (simsmall/simmedium/simlarge):
 **Build Command**
 ```
 Usage: ./build.sh [-p program] [-r] [-h] [-u usage]
-  -p program   : specify the program to build. Default: barnes
+  -p program   : specify the program to build. Default: blackscholes
   -r           : set platform to rv64
   -v           : set version: pthreads, openmp. Default: pthreads
   -u           : set usage: normal, profiling, checkpoint. Default: normal
