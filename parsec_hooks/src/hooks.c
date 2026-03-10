@@ -223,7 +223,7 @@ void _halt(void *arg) {
   while (1);
 }
 
-void _exit_profiler(void *arg) {
+void* _exit_profiler(void *arg) {
   long cpu = (long)arg;
 
   cpu_set_t set;
@@ -235,7 +235,6 @@ void _exit_profiler(void *arg) {
   fflush(NULL);
 
   nemu_signal(NOTIFY_PROFILE_EXIT);
-
   return NULL;
 }
 
