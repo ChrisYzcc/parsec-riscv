@@ -205,7 +205,7 @@ void* gen_ckp(void *arg) {
   return NULL;
 }
 
-void _halt(void *arg) {
+void* _halt(void *arg) {
   long cpu = (long)arg;
 
   cpu_set_t set;
@@ -221,6 +221,7 @@ void _halt(void *arg) {
 
   // should not reach here
   while (1);
+  return NULL;
 }
 
 void* _exit_profiler(void *arg) {
