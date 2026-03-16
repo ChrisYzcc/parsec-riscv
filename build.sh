@@ -137,20 +137,20 @@ if [ "${ENABLE_CHECKPOINT}" = "true" ]; then
         export CXXFLAGS="${CXXFLAGS} -DNEMU"
     fi
 
-    if [ ! -d "${PARSECDIR}/parsec_hooks/build/${PLATFORM}/${USAGE}/lib" ]; then
+    if [ ! -f "${PARSECDIR}/parsec_hooks/build/${PLATFORM}/${USAGE}/lib/libhooks.a" ]; then
         mkdir -p ${PARSECDIR}/parsec_hooks/build/${PLATFORM}/${USAGE}/obj
         cp -r ${PARSECDIR}/parsec_hooks/src/* ${PARSECDIR}/parsec_hooks/build/${PLATFORM}/${USAGE}/obj
         make -C ${PARSECDIR}/parsec_hooks/build/${PLATFORM}/${USAGE}/obj
         make -C ${PARSECDIR}/parsec_hooks/build/${PLATFORM}/${USAGE}/obj install
 
         if [ $? -ne 0 ]; then
-            echo "\033[31m[ERROR] Build failed for parsec_hooks!\033[0m"
+            echo -e "\033[31m[ERROR] Build failed for parsec_hooks!\033[0m"
             exit 1
         else
-            echo "\033[32mparsec_hooks built successfully for ${PLATFORM}, ${USAGE}.\033[0m"
+            echo -e "\033[32mparsec_hooks built successfully for ${PLATFORM}, ${USAGE}.\033[0m"
         fi
     else
-        echo "  parsec_hooks already built for ${PLATFORM}, ${USAGE}, skipping."
+        echo -e "\033[33m  parsec_hooks already built for ${PLATFORM}, ${USAGE}, skipping.\033[0m"
     fi
 
     export CFLAGS="${CFLAGS} -I${PARSECDIR}/parsec_hooks/build/${PLATFORM}/${USAGE}/include -DENABLE_PARSEC_HOOKS"
@@ -174,10 +174,10 @@ if [ "${PROGRAM}" = "all" ]; then
         cd ${prog}
         ./build.sh
         if [ $? -ne 0 ]; then
-            echo "\033[31m[ERROR] Build failed for ${prog}!\033[0m"
+            echo -e "\033[31m[ERROR] Build failed for ${prog}!\033[0m"
             FAILED_LIST="$FAILED_LIST $prog"
         else
-            echo "\033[32m${prog} built successfully for ${PLATFORM}, ${USAGE}.\033[0m"
+            echo -e "\033[32m${prog} built successfully for ${PLATFORM}, ${USAGE}.\033[0m"
         fi
         cd ${PARSECDIR}
     done
@@ -186,7 +186,7 @@ if [ "${PROGRAM}" = "all" ]; then
     echo "  Build of all programs completed."
     echo "============================================================================"
     if [ -n "$FAILED_LIST" ]; then
-        echo "\033[31m[ERROR] The following programs failed to build:$FAILED_LIST\033[0m"
+        echo -e "\033[31m[ERROR] The following programs failed to build:$FAILED_LIST\033[0m"
         exit 1
     fi
     exit 0
@@ -201,9 +201,9 @@ else
     cd ${PROGRAM}
     ./build.sh
     if [ $? -ne 0 ]; then
-        echo "\033[31m[ERROR] Build failed for ${PROGRAM}!\033[0m"
+        echo -e "\033[31m[ERROR] Build failed for ${PROGRAM}!\033[0m"
     else
-        echo "\033[32m${PROGRAM} built successfully for ${PLATFORM}, ${USAGE}.\033[0m"
+        echo -e "\033[32m${PROGRAM} built successfully for ${PLATFORM}, ${USAGE}.\033[0m"
     fi
     cd ${PARSECDIR}
 
